@@ -1,0 +1,1311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="RentHub GenSan — event, entertainment, photography, camping and beach equipment rentals in General Santos City. Reserve online, pick up in store.">
+<meta name="theme-color" content="#12386B">
+<meta property="og:title" content="RentHub GenSan">
+<meta property="og:description" content="Rent what you need, the smarter choice indeed. Equipment rentals in General Santos City.">
+<meta property="og:image" content="assets/logo.jpg">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<title>RentHub GenSan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: sticky brand header, navy hero band with booking search, content sections on a cool neutral ground; admin uses a sidebar console. */
+:root{
+  --navy:#12386B; --navy-deep:#0A2547; --gold:#D9A229; --gold-ink:#8A6210; --gold-soft:#FBF1D9;
+  --leaf:#3C8A3A; --sea:#1F6FB2;
+  --bg:#F5F7FA; --surface:#FFFFFF; --surface-2:#EEF2F7; --ink:#0F1E33; --muted:#566781; --line:#DDE3EC;
+  --primary:#12386B; --on-primary:#FFFFFF; --link:#1A4E92;
+  --ok:#1F7A4A; --ok-bg:#E3F4EA; --warn:#9A6200; --warn-bg:#FDF0D5; --bad:#B42318; --bad-bg:#FDE7E5; --info:#1D5FA8; --info-bg:#E2EDFA;
+  --art-a:#12386B; --art-b:#D9A229; --art-c:#FFFFFF; --art-d:#3C8A3A; --art-e:#1F6FB2; --tile:#E8EEF6;
+  --shadow:0 1px 2px rgba(15,30,51,.06),0 6px 20px rgba(15,30,51,.07);
+  --f-display:"Bricolage Grotesque","Figtree",system-ui,sans-serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0B1424; --surface:#111E34; --surface-2:#172843; --ink:#E7EDF6; --muted:#9DAEC6; --line:#24375A;
+  --primary:#E2B13C; --on-primary:#1A1405; --link:#8DB8F0; --gold-soft:#2C2510; --gold-ink:#E9BE55;
+  --ok:#5FD39A; --ok-bg:#12331F; --warn:#F2BE5C; --warn-bg:#33270C; --bad:#FF8A80; --bad-bg:#3A1513; --info:#8DB8F0; --info-bg:#12284A;
+  --art-a:#9CC2F2; --art-c:#1B2E4F; --tile:#162845; --navy-deep:#081B35;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B1424; --surface:#111E34; --surface-2:#172843; --ink:#E7EDF6; --muted:#9DAEC6; --line:#24375A;
+  --primary:#E2B13C; --on-primary:#1A1405; --link:#8DB8F0; --gold-soft:#2C2510; --gold-ink:#E9BE55;
+  --ok:#5FD39A; --ok-bg:#12331F; --warn:#F2BE5C; --warn-bg:#33270C; --bad:#FF8A80; --bad-bg:#3A1513; --info:#8DB8F0; --info-bg:#12284A;
+  --art-a:#9CC2F2; --art-c:#1B2E4F; --tile:#162845; --navy-deep:#081B35;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3); color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--surface)}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.12;margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+a{color:var(--link)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.num{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--f-mono)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink)}
+.muted{color:var(--muted)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:999px;padding:10px 18px;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap;transition:transform .12s,background .15s,border-color .15s}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--primary);color:var(--on-primary)}
+.btn-primary:hover{filter:brightness(1.1)}
+.btn-gold{background:var(--gold);color:#1A1405}
+.btn-gold:hover{filter:brightness(1.06)}
+.btn-ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{background:var(--surface-2)}
+.btn-danger{background:transparent;border-color:var(--bad);color:var(--bad)}
+.btn-sm{padding:6px 12px;font-size:13px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.link-btn{background:none;border:0;padding:0;color:var(--link);font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+/* Header */
+.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--surface);border-bottom:1px solid var(--line)}
+.hdr .wrap{display:flex;align-items:center;gap:20px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);cursor:pointer;background:none;border:0;padding:0}
+.brand img{width:46px;height:46px;border-radius:50%;background:#fff;box-shadow:0 0 0 1px var(--line)}
+.brand b{font-family:var(--f-display);font-size:19px;font-weight:800;letter-spacing:-.01em}
+.brand b span{color:var(--gold-ink)}
+.brand small{display:block;font-size:10.5px;letter-spacing:.2em;color:var(--muted);font-weight:700;margin-top:-2px}
+.nav{display:flex;gap:4px;margin-left:12px}
+.nav button{background:none;border:0;padding:8px 12px;border-radius:8px;font-weight:600;color:var(--muted);cursor:pointer}
+.nav button:hover{color:var(--ink);background:var(--surface-2)}
+.nav button.on{color:var(--ink);box-shadow:inset 0 -2px 0 var(--gold);border-radius:0}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.icon-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--surface);cursor:pointer;color:var(--ink)}
+.icon-btn:hover{background:var(--surface-2)}
+.badge-count{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:var(--gold);color:#1A1405;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.user-chip{display:flex;align-items:center;gap:8px;padding:4px 12px 4px 4px;border:1px solid var(--line);border-radius:999px;background:var(--surface);cursor:pointer;font-weight:600}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none}
+.menu-toggle{display:none}
+.topbar{background:var(--navy-deep);color:#D8E2F0;font-size:12.5px}
+.topbar .wrap{display:flex;gap:18px;justify-content:space-between;padding-block:7px;flex-wrap:wrap}
+.topbar b{color:#F3C962;font-weight:600}
+
+/* Hero */
+.hero{background:radial-gradient(1200px 400px at 85% -10%,rgba(217,162,41,.22),transparent 60%),linear-gradient(180deg,#12386B,#0C2A52);color:#fff;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding-block:56px 64px}
+.hero h1{font-size:clamp(34px,5vw,56px);font-weight:800;color:#fff}
+.hero h1 em{font-style:normal;color:#F3C962}
+.hero p.lead{font-size:18px;color:#C9D6EA;max-width:52ch;margin-top:16px}
+.search-card{margin-top:28px;background:var(--surface);color:var(--ink);border-radius:16px;padding:14px;display:grid;grid-template-columns:1.2fr 1fr 1fr auto;gap:10px;box-shadow:0 20px 40px rgba(0,0,0,.25)}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.input,select.input,textarea.input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);min-width:0}
+.input:focus{outline:2px solid var(--gold);outline-offset:0;border-color:transparent}
+.search-card .btn{align-self:end;height:44px}
+.hero-trust{display:flex;gap:22px;margin-top:22px;flex-wrap:wrap;font-size:13.5px;color:#C9D6EA}
+.hero-trust span{display:flex;align-items:center;gap:7px}
+.hero-trust svg{color:#F3C962}
+.hero-art{position:relative;display:flex;justify-content:center}
+.hero-logo{width:min(360px,80%);aspect-ratio:1;max-width:100%;border-radius:50%;background:#fff;padding:10px;box-shadow:0 0 0 10px rgba(255,255,255,.06),0 0 0 22px rgba(255,255,255,.04),0 30px 60px rgba(0,0,0,.35)}
+.float-chip{position:absolute;background:var(--surface);color:var(--ink);border-radius:12px;padding:10px 14px;box-shadow:0 12px 30px rgba(0,0,0,.25);font-size:13px;display:flex;gap:10px;align-items:center}
+.float-chip b{display:block;font-size:14px}
+.float-chip .dot{width:10px;height:10px;border-radius:50%;background:#2FB36B;flex:none;box-shadow:0 0 0 4px rgba(47,179,107,.2)}
+.fc1{left:0;top:16%}.fc2{right:0;bottom:12%}
+
+/* Sections */
+.section{padding-block:64px}
+.sec-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:28px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(26px,3.2vw,36px);font-weight:800;margin-top:6px}
+.sec-head p{color:var(--muted);max-width:56ch;margin-top:8px}
+.cat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.cat-tile{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:10px;transition:border-color .15s,transform .15s}
+.cat-tile:hover{border-color:var(--gold);transform:translateY(-2px)}
+.cat-tile .art{border-radius:10px;aspect-ratio:4/3}
+.cat-tile h3{font-size:17px}
+.cat-tile small{color:var(--muted);font-size:13px;line-height:1.4}
+.cat-tile .cat-meta{font-size:12.5px;font-weight:700;color:var(--gold-ink);margin-top:auto}
+
+.art{background:var(--tile);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;max-width:100%}
+.art svg{width:78%;height:auto;max-height:86%}
+.art[data-cat="events"]{background:linear-gradient(160deg,var(--tile),color-mix(in srgb,var(--gold) 14%,var(--tile)))}
+.art[data-cat="entertainment"]{background:linear-gradient(160deg,var(--tile),color-mix(in srgb,#8a5cc8 12%,var(--tile)))}
+.art[data-cat="photography"]{background:linear-gradient(160deg,var(--tile),color-mix(in srgb,var(--sea) 14%,var(--tile)))}
+.art[data-cat="outdoor"]{background:linear-gradient(160deg,var(--tile),color-mix(in srgb,var(--leaf) 16%,var(--tile)))}
+.art[data-cat="beach"]{background:linear-gradient(160deg,var(--tile),color-mix(in srgb,#1aa3b8 18%,var(--tile)))}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:s}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:8px}
+.step .n{width:34px;height:34px;border-radius:50%;background:var(--gold-soft);color:var(--gold-ink);font-weight:800;display:flex;align-items:center;justify-content:center;font-family:var(--f-display)}
+.step h3{font-size:18px}
+.step p{color:var(--muted);font-size:14.5px}
+
+.pickup-band{background:var(--navy-deep);color:#DCE6F4}
+.pickup-band .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;padding-block:56px;align-items:start}
+.pickup-band h2{color:#fff;font-size:clamp(26px,3vw,34px)}
+.pickup-band .eyebrow{color:#F3C962}
+.policy-list{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:12px}
+.policy-list li{display:flex;gap:12px;align-items:flex-start}
+.policy-list svg{flex:none;color:#F3C962;margin-top:2px}
+.shop-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:22px;display:grid;gap:14px}
+.shop-card h3{color:#fff;font-size:20px}
+.hours{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;font-size:14px}
+.hours dt{color:#9FB2CF}.hours dd{margin:0;color:#fff;font-variant-numeric:tabular-nums}
+
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.quote{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:14px}
+.quote p{font-size:15.5px}
+.quote footer{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--muted);margin-top:auto}
+.stars{color:var(--gold);letter-spacing:2px}
+
+/* Product cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .15s,transform .15s}
+.card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.card .art{aspect-ratio:4/3;cursor:pointer;border:0;width:100%;padding:0}
+.card-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card-cat{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.card h3{font-size:18px}
+.card p.desc{font-size:13.5px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.price{font-family:var(--f-display);font-weight:800;font-size:20px}
+.price small{font-family:var(--f-body);font-weight:500;font-size:13px;color:var(--muted)}
+.card-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:6px}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.pill.info{background:var(--info-bg);color:var(--info)}
+.pill.neutral{background:var(--surface-2);color:var(--muted)}
+.art .tag{position:absolute;top:10px;left:10px}
+
+/* Catalog layout */
+.page-head{background:var(--surface);border-bottom:1px solid var(--line)}
+.page-head .wrap{padding-block:28px}
+.page-head h1{font-size:clamp(28px,3.4vw,38px);font-weight:800;margin-top:4px}
+.crumbs{font-size:13px;color:var(--muted)}
+.catalog{display:grid;grid-template-columns:260px 1fr;gap:28px;padding-block:28px 64px;align-items:start}
+.filters{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:18px}
+.filters h4{font-family:var(--f-body);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cat-list{display:grid;gap:2px}
+.cat-list button{display:flex;justify-content:space-between;align-items:center;background:none;border:0;padding:8px 10px;border-radius:8px;cursor:pointer;text-align:left;font-weight:600;color:var(--ink)}
+.cat-list button:hover{background:var(--surface-2)}
+.cat-list button.on{background:var(--gold-soft);color:var(--gold-ink)}
+.cat-list span{font-size:12px;color:var(--muted);font-weight:600}
+.period-note{font-size:13px;background:var(--surface-2);border-radius:8px;padding:10px 12px}
+.toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-weight:600;font-size:13.5px;cursor:pointer;color:var(--ink)}
+.chip.on{background:var(--primary);color:var(--on-primary);border-color:transparent}
+.mobile-only{display:none}
+
+/* Modal */
+.overlay{position:fixed;inset:0;background:rgba(6,15,30,.55);z-index:100;display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.modal{background:var(--surface);border-radius:18px;width:min(880px,100%);max-height:100%;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.4);position:relative}
+.modal.sm{width:min(480px,100%)}
+.modal-x{position:absolute;top:12px;right:12px;z-index:2}
+.pd{display:grid;grid-template-columns:1fr 1fr}
+.pd .art{min-height:340px;height:100%}
+.pd-body{padding:28px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.pd-body h2{font-size:28px;font-weight:800}
+.incl{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:14px}
+.incl li{display:flex;gap:8px}
+.incl li::before{content:"✓";color:var(--ok);font-weight:800}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kv div{background:var(--surface-2);border-radius:10px;padding:10px 12px}
+.kv small{display:block;font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.kv b{font-size:16px;font-variant-numeric:tabular-nums}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}
+.qty button{width:36px;height:36px;border:0;background:none;cursor:pointer;font-size:18px;font-weight:700;color:var(--ink)}
+.qty button:hover{background:var(--surface-2)}
+.qty input{width:52px;text-align:center;border:0;background:none;font-weight:700;font-variant-numeric:tabular-nums}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.notice{display:flex;gap:10px;padding:12px 14px;border-radius:10px;font-size:13.5px;align-items:flex-start}
+.notice svg{flex:none;margin-top:2px}
+.notice.gold{background:var(--gold-soft);color:var(--ink)}
+.notice.gold svg{color:var(--gold-ink)}
+.notice.bad{background:var(--bad-bg);color:var(--bad)}
+.notice.info{background:var(--info-bg);color:var(--info)}
+
+/* Cart / checkout */
+.layout-2{display:grid;grid-template-columns:1fr 360px;gap:28px;padding-block:28px 64px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.panel-h{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.panel-h h3{font-size:18px}
+.panel-b{padding:20px}
+.line{display:grid;grid-template-columns:96px 1fr auto;gap:16px;padding:16px 20px;border-bottom:1px solid var(--line);align-items:center}
+.line:last-child{border-bottom:0}
+.line .art{width:96px;height:72px;border-radius:10px}
+.line h4{font-size:16px}
+.line-meta{font-size:13px;color:var(--muted)}
+.line-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.summary{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px)}
+.sum-row{display:flex;justify-content:space-between;gap:12px;font-size:14.5px;padding:6px 0;font-variant-numeric:tabular-nums}
+.sum-row.total{border-top:1px solid var(--line);margin-top:8px;padding-top:12px;font-weight:800;font-size:18px;font-family:var(--f-display)}
+.empty{padding:48px 24px;text-align:center;display:grid;gap:12px;justify-items:center}
+.empty svg{color:var(--muted)}
+.opt{display:flex;gap:12px;border:1px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;align-items:flex-start}
+.opt:has(input:checked){border-color:var(--gold);background:var(--gold-soft)}
+.opt input{margin-top:3px;accent-color:var(--navy)}
+.opt b{display:block}
+.opt small{color:var(--muted)}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+.slot{border:1px solid var(--line);border-radius:10px;padding:9px;text-align:center;cursor:pointer;font-weight:600;font-size:14px;background:var(--surface)}
+.slot.on{background:var(--primary);color:var(--on-primary);border-color:transparent}
+.confirm-hero{text-align:center;display:grid;gap:12px;justify-items:center;padding:32px 20px}
+.code-big{font-family:var(--f-mono);font-size:28px;font-weight:600;letter-spacing:.08em;background:var(--gold-soft);color:var(--gold-ink);padding:10px 20px;border-radius:12px;border:1px dashed var(--gold)}
+.check-ring{width:64px;height:64px;border-radius:50%;background:var(--ok-bg);color:var(--ok);display:flex;align-items:center;justify-content:center}
+
+/* Auth */
+.auth{display:grid;grid-template-columns:1fr 1fr;min-height:560px;margin-block:36px 64px;background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.auth-side{background:linear-gradient(170deg,#12386B,#0A2547);color:#DCE6F4;padding:40px;display:flex;flex-direction:column;gap:18px}
+.auth-side h2{color:#fff;font-size:30px}
+.auth-side img{width:120px;height:120px;border-radius:50%;background:#fff}
+.auth-form{padding:40px;display:grid;gap:14px;align-content:start}
+.tabs{display:flex;gap:4px;background:var(--surface-2);padding:4px;border-radius:999px;width:max-content;max-width:100%}
+.tabs button{border:0;background:none;padding:8px 18px;border-radius:999px;font-weight:700;cursor:pointer;color:var(--muted)}
+.tabs button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.demo-acc{font-size:13px;border:1px dashed var(--line);border-radius:10px;padding:12px;display:grid;gap:6px}
+.demo-acc button{text-align:left}
+.err{color:var(--bad);font-size:13.5px;font-weight:600}
+
+/* Dashboard */
+.dash-head{background:var(--surface);border-bottom:1px solid var(--line)}
+.dash-head .wrap{padding-block:28px;display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.stat small{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.stat b{display:block;font-family:var(--f-display);font-size:28px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:4px}
+.stat span{font-size:12.5px;color:var(--muted)}
+.res-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.res-top{display:flex;gap:16px;justify-content:space-between;align-items:center;padding:16px 20px;flex-wrap:wrap}
+.res-top .code{font-family:var(--f-mono);font-weight:600;font-size:15px}
+.res-dates{display:flex;gap:18px;flex-wrap:wrap;font-size:14px}
+.res-dates b{display:block;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.res-items{display:flex;gap:8px;flex-wrap:wrap;padding:0 20px 16px}
+.res-item{display:flex;gap:8px;align-items:center;background:var(--surface-2);border-radius:10px;padding:6px 10px 6px 6px;font-size:13.5px}
+.res-item .art{width:36px;height:28px;border-radius:6px}
+.timeline{display:flex;gap:0;padding:14px 20px;border-top:1px solid var(--line);background:var(--surface-2);overflow-x:auto}
+.tl{flex:1;min-width:110px;display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--muted);position:relative}
+.tl i{width:14px;height:14px;border-radius:50%;border:2px solid var(--line);background:var(--surface);position:relative;z-index:1}
+.tl::after{content:"";position:absolute;left:14px;right:0;top:6px;height:2px;background:var(--line)}
+.tl:last-child::after{display:none}
+.tl.done{color:var(--ink);font-weight:600}
+.tl.done i{background:var(--ok);border-color:var(--ok)}
+.tl.done::after{background:var(--ok)}
+.tl.cur i{border-color:var(--gold);background:var(--gold)}
+.res-actions{display:flex;gap:8px;justify-content:flex-end;padding:12px 20px;border-top:1px solid var(--line);flex-wrap:wrap;align-items:center}
+.stack{display:grid;gap:14px}
+
+/* Admin */
+.admin{display:grid;grid-template-columns:232px 1fr;min-height:calc(100vh - 68px)}
+.side{background:var(--navy-deep);color:#C6D3E7;padding:20px 12px;display:flex;flex-direction:column;gap:4px}
+.side h5{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7F94B5;margin:14px 10px 6px;font-family:var(--f-body)}
+.side button{display:flex;align-items:center;gap:10px;background:none;border:0;color:inherit;padding:10px 12px;border-radius:8px;cursor:pointer;font-weight:600;text-align:left}
+.side button:hover{background:rgba(255,255,255,.06);color:#fff}
+.side button.on{background:rgba(217,162,41,.16);color:#F3C962}
+.side .count{margin-left:auto;background:#D9A229;color:#1A1405;border-radius:10px;font-size:11px;padding:1px 7px;font-weight:800}
+.admin-main{padding:28px max(16px,env(safe-area-inset-right,0px)) 64px 28px;min-width:0;display:grid;gap:20px;align-content:start}
+.admin-main h1{font-size:28px;font-weight:800}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap;background:var(--surface-2)}
+td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.cell-item{display:flex;gap:10px;align-items:center;min-width:200px}
+.cell-item .art{width:48px;height:36px;border-radius:7px;flex:none}
+.cal{border-collapse:separate;border-spacing:3px;font-size:12.5px}
+.cal th{background:none;border:0;padding:4px;text-align:center;font-size:11px;letter-spacing:0}
+.cal th.today{color:var(--gold-ink)}
+.cal td{border:0;padding:0}
+.cal td.nm{padding-right:10px;white-space:nowrap;font-weight:600;font-size:13px}
+.cal .c{width:44px;height:34px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-variant-numeric:tabular-nums}
+.c.l0{background:var(--ok-bg);color:var(--ok)}
+.c.l1{background:var(--warn-bg);color:var(--warn)}
+.c.l2{background:var(--bad-bg);color:var(--bad)}
+.c.mt{background:var(--surface-2);color:var(--muted)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend span{display:flex;gap:6px;align-items:center}
+.legend i{width:14px;height:14px;border-radius:4px;display:inline-block}
+.list-row{display:flex;justify-content:space-between;gap:12px;padding:12px 20px;border-bottom:1px solid var(--line);align-items:center;flex-wrap:wrap}
+.list-row:last-child{border-bottom:0}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.bar{height:8px;background:var(--surface-2);border-radius:4px;overflow:hidden;min-width:80px}
+.bar i{display:block;height:100%;background:var(--gold);border-radius:4px}
+.toggle{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:13.5px;font-weight:600}
+.toggle input{accent-color:var(--navy);width:16px;height:16px}
+
+/* Footer */
+.foot{background:var(--surface);border-top:1px solid var(--line);margin-top:0}
+.foot .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px;padding-block:44px}
+.foot h4{font-size:14px;font-family:var(--f-body);font-weight:700;margin-bottom:10px}
+.foot ul{list-style:none;padding:0;margin:0;display:grid;gap:6px;font-size:14px;color:var(--muted)}
+.foot ul button{background:none;border:0;padding:0;color:inherit;cursor:pointer}
+.foot ul button:hover{color:var(--ink)}
+.foot-bottom{border-top:1px solid var(--line)}
+.foot-bottom .wrap{display:flex;justify-content:space-between;padding-block:16px;font-size:12.5px;color:var(--muted);gap:12px;flex-wrap:wrap}
+.preview-flag{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;background:var(--ink);color:var(--bg);font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;opacity:.85}
+
+/* Toast */
+.toasts{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:200;display:grid;gap:8px;max-width:min(380px,calc(100vw - 32px))}
+.toast{background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:12px;font-size:14px;font-weight:600;box-shadow:var(--shadow);animation:tin .25s ease}
+.toast.bad{background:var(--bad);color:#fff}
+@keyframes tin{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Responsive */
+@media (max-width:1020px){
+  .cat-grid{grid-template-columns:repeat(3,1fr)}
+  .hero .wrap{grid-template-columns:1fr}
+  .hero-art{display:none}
+  .search-card{grid-template-columns:1fr 1fr}
+  .search-card .btn{grid-column:1/-1}
+  .catalog{grid-template-columns:1fr}
+  .filters{position:static}
+  .layout-2{grid-template-columns:1fr}
+  .summary{position:static}
+  .admin{grid-template-columns:1fr}
+  .side{flex-direction:row;overflow-x:auto;padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px))}
+  .side h5,.side .spacer{display:none}
+  .side button{white-space:nowrap}
+  .admin-main{padding-left:max(16px,env(safe-area-inset-left,0px))}
+  .foot .wrap{grid-template-columns:1fr 1fr}
+  .pickup-band .wrap{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .nav{display:none}
+  .nav.open{display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;background:var(--surface);border-bottom:1px solid var(--line);padding:8px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));margin:0}
+  .nav.open button.on{box-shadow:inset 3px 0 0 var(--gold)}
+  .menu-toggle{display:inline-flex}
+  .user-chip .nm{display:none}
+  .cat-grid{grid-template-columns:repeat(2,1fr)}
+  .steps,.quotes,.grid-2{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .pd{grid-template-columns:1fr}
+  .pd .art{min-height:200px}
+  .auth{grid-template-columns:1fr}
+  .auth-side{display:none}
+  .auth-form{padding:24px}
+  .line{grid-template-columns:64px 1fr;}
+  .line .art{width:64px;height:52px}
+  .line-right{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:center}
+  .topbar .hide-sm{display:none}
+  .brand small{display:none}
+  .two{grid-template-columns:1fr}
+}
+@media (max-width:440px){
+  .search-card{grid-template-columns:1fr}
+  .foot .wrap{grid-template-columns:1fr}
+  .cat-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .hdr .wrap{gap:10px}
+  .brand b{font-size:17px}
+}
+/* ===== Premium layer ===== */
+:root{--studio:#F3F6FA;--studio-2:#E2E9F3;--serif:"Instrument Serif","Times New Roman",Georgia,serif;--gold-grad:linear-gradient(180deg,#EDC155,#C99520)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--studio:#1B3053;--studio-2:#0F1E36}}
+:root[data-theme="dark"]{--studio:#1B3053;--studio-2:#0F1E36}
+.serif{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0}
+.eyebrow{display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:22px;height:1.5px;background:currentColor;opacity:.7}
+.topbar{background:#071A33;letter-spacing:.02em}
+.hdr{background:color-mix(in srgb,var(--surface) 86%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px)}
+.hdr .wrap{height:74px}
+.btn{letter-spacing:.01em}
+.btn-gold{background:var(--gold-grad);color:#1A1405;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 6px 18px rgba(201,149,32,.32)}
+.btn-gold:hover{filter:brightness(1.05);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 10px 26px rgba(201,149,32,.42)}
+.btn-primary{box-shadow:0 6px 16px color-mix(in srgb,var(--primary) 28%,transparent)}
+.btn-lg{padding:14px 26px;font-size:16px}
+
+/* Hero */
+.hero{position:relative;background:radial-gradient(900px 520px at 78% 30%,rgba(232,181,64,.20),transparent 60%),radial-gradient(700px 400px at 0% 100%,rgba(31,111,178,.35),transparent 60%),linear-gradient(165deg,#103463 0%,#0A2547 55%,#071A33 100%)}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at 70% 40%,#000 20%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 70% 40%,#000 20%,transparent 70%);pointer-events:none}
+.hero .wrap{position:relative;padding-block:72px 40px;grid-template-columns:1.05fr .95fr;gap:48px}
+.hero-kicker{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);font-size:13px;color:#DCE6F4}
+.hero-kicker b{background:var(--gold-grad);color:#1A1405;border-radius:999px;padding:2px 10px;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+.hero h1{font-size:clamp(40px,5.6vw,72px);letter-spacing:-.025em;line-height:1.02;margin-top:22px}
+.hero h1 .serif{color:#F0C55A;font-size:1.08em;line-height:.9}
+.hero p.lead{font-size:18.5px;line-height:1.6;color:#BFD0E8}
+.search-card{border-radius:20px;padding:10px;grid-template-columns:1.25fr 1fr 1fr auto;gap:0;margin-top:34px;box-shadow:0 30px 60px rgba(2,10,25,.45),0 0 0 1px rgba(255,255,255,.08)}
+.search-card .field{padding:8px 14px;border-right:1px solid var(--line)}
+.search-card .field:nth-child(3){border-right:0}
+.search-card .input{border:0;padding:4px 0;font-weight:600;font-size:15px;background:transparent}
+.search-card .input:focus{outline:0}
+.search-card .field:focus-within{background:var(--surface-2);border-radius:12px}
+.search-card .btn{height:auto;align-self:stretch;border-radius:14px;padding-inline:24px}
+.hero-trust{margin-top:26px;gap:26px}
+.showcase{position:relative;width:100%;max-width:540px;aspect-ratio:1;margin-inline:auto}
+.seal{position:absolute;inset:14%;border-radius:50%;background:#fff;padding:8px;box-shadow:0 0 0 1px rgba(240,197,90,.5),0 0 0 14px rgba(255,255,255,.04),0 0 0 15px rgba(240,197,90,.18),0 0 0 34px rgba(255,255,255,.03),0 40px 80px rgba(0,0,0,.45)}
+.seal img{width:100%;height:100%;border-radius:50%;display:block}
+.plinth{position:absolute;display:flex;align-items:center;gap:12px;padding:8px 16px 8px 8px;border-radius:16px;background:var(--surface);color:var(--ink);box-shadow:0 18px 40px rgba(0,0,0,.32);font-size:13px;animation:bob 7s ease-in-out infinite}
+.plinth .art{width:84px;height:66px;border-radius:12px;flex:none}
+.plinth .art::after{display:none}
+.plinth b{display:block;font-size:14.5px}
+.plinth span{color:var(--muted)}
+.plinth span em{font-style:normal;color:var(--gold-ink);font-weight:700}
+.p1{left:-4%;top:8%}.p2{right:-6%;top:44%;animation-delay:-2.3s}.p3{left:2%;bottom:4%;animation-delay:-4.6s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hero-stats{position:relative;border-top:1px solid rgba(255,255,255,.1)}
+.hero-stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding-block:26px 30px;grid-template-rows:auto}
+.hstat{display:flex;flex-direction:column;gap:2px;color:#AFC1DB;font-size:13.5px}
+.hstat b{font-family:var(--serif);font-style:italic;font-weight:400;font-size:38px;line-height:1;color:#fff}
+.hstat b i{color:#F0C55A;font-style:italic}
+
+/* Sections */
+.section{padding-block:88px}
+.sec-head{margin-bottom:36px}
+.sec-head h2{font-size:clamp(30px,3.8vw,46px);letter-spacing:-.02em;line-height:1.05}
+.sec-head h2 .serif{color:var(--gold-ink);font-size:1.06em}
+.sec-head.center{flex-direction:column;align-items:center;text-align:center}
+.sec-head.center p{margin-inline:auto}
+
+/* Bento categories */
+.bento{display:grid;grid-template-columns:1.25fr 1fr 1fr;grid-template-rows:repeat(2,minmax(250px,auto));gap:16px}
+.bento .tile{position:relative;border:0;border-radius:22px;overflow:hidden;cursor:pointer;text-align:left;padding:0;display:flex;flex-direction:column;background:var(--surface);box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s;color:var(--ink)}
+.bento .tile:hover{transform:translateY(-4px);box-shadow:0 2px 4px rgba(15,30,51,.06),0 24px 48px rgba(15,30,51,.14)}
+.bento .tile:first-child{grid-row:span 2}
+.bento .tile .art{flex:1;min-height:150px}
+.bento .tile:first-child .art{min-height:300px}
+.bento .tile:first-child .art svg{width:62%}
+.tile-body{padding:18px 20px 20px;display:grid;gap:6px}
+.tile-body h3{font-size:22px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tile-body h3 .arr{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex:none;transition:background .2s,color .2s,border-color .2s}
+.bento .tile:hover .arr{background:var(--gold);border-color:var(--gold);color:#1A1405}
+.tile-body small{color:var(--muted);font-size:13.5px}
+.tile-body .cat-meta{font-size:13px;font-weight:700;color:var(--gold-ink)}
+
+/* Studio-lit product art */
+.art{--tint:var(--gold);background:radial-gradient(70% 65% at 50% 38%,color-mix(in srgb,var(--tint) 16%,var(--studio)) 0%,var(--studio) 55%,var(--studio-2) 100%)!important}
+.art[data-cat="entertainment"]{--tint:#8a5cc8}.art[data-cat="photography"]{--tint:var(--sea)}.art[data-cat="outdoor"]{--tint:var(--leaf)}.art[data-cat="beach"]{--tint:#16a3b8}
+.art svg{position:relative;z-index:1;filter:drop-shadow(0 12px 14px rgba(8,24,52,.22))}
+.art::after{content:"";position:absolute;left:22%;right:22%;bottom:9%;height:10%;border-radius:50%;background:radial-gradient(closest-side,rgba(8,24,52,.22),transparent);z-index:0}
+.line .art::after,.res-item .art::after,.cell-item .art::after{display:none}
+
+/* Product cards */
+.grid{gap:22px}
+.card{border:0;border-radius:20px;box-shadow:var(--shadow)}
+.card:hover{transform:translateY(-4px);box-shadow:0 2px 4px rgba(15,30,51,.06),0 24px 48px rgba(15,30,51,.14)}
+.card .art{aspect-ratio:5/4}
+.card .art svg{transition:transform .35s ease}
+.card:hover .art svg{transform:scale(1.05) translateY(-3px)}
+.card-body{padding:18px 20px 20px;gap:8px}
+.card h3{font-size:20px}
+.price{font-size:22px}
+
+/* RentHub standard */
+.standard{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.std{padding:26px 22px;border-radius:20px;background:var(--surface);box-shadow:var(--shadow);display:grid;gap:10px;align-content:start}
+.std .ring{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold-ink);background:var(--gold-soft);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--gold) 45%,transparent)}
+.std h3{font-size:18px}
+.std p{color:var(--muted);font-size:14.5px}
+
+/* Steps */
+.steps{gap:0;background:var(--surface);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
+.step{border:0;border-radius:0;padding:30px 28px;background:none;border-right:1px solid var(--line)}
+.step:last-child{border-right:0}
+.step .n{width:auto;height:auto;background:none;font-family:var(--serif);font-style:italic;font-weight:400;font-size:52px;line-height:1;color:var(--gold-ink)}
+
+/* Testimonials */
+.testi{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;align-items:stretch}
+.feature-quote{background:linear-gradient(160deg,#12386B,#0A2547);color:#E2EAF6;border-radius:22px;padding:40px;display:flex;flex-direction:column;gap:22px;position:relative;overflow:hidden}
+.feature-quote::before{content:"“";position:absolute;right:24px;top:-30px;font-family:var(--serif);font-size:220px;color:rgba(240,197,90,.18);line-height:1}
+.feature-quote p{font-family:var(--serif);font-size:clamp(24px,2.6vw,32px);line-height:1.3;color:#fff;position:relative}
+.feature-quote footer{display:flex;gap:12px;align-items:center;margin-top:auto;font-size:14px;color:#AFC1DB}
+.feature-quote footer b{color:#fff}
+.side-quotes{display:grid;gap:20px}
+.quote{border:0;border-radius:20px;box-shadow:var(--shadow)}
+.rating-sum{display:flex;gap:14px;align-items:center;font-size:14px;color:var(--muted);margin-top:18px;flex-wrap:wrap}
+.rating-sum b{font-family:var(--serif);font-style:italic;font-weight:400;font-size:34px;color:var(--ink);line-height:1}
+
+/* Pickup band */
+.pickup-band{background:radial-gradient(600px 300px at 90% 0%,rgba(240,197,90,.14),transparent 60%),#071A33}
+.pickup-band h2{font-size:clamp(30px,3.6vw,44px);letter-spacing:-.02em}
+.shop-card{background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border-color:rgba(240,197,90,.25);border-radius:22px;padding:28px}
+
+/* CTA */
+.cta{border-radius:26px;padding:48px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;background:radial-gradient(500px 260px at 100% 0%,rgba(255,255,255,.35),transparent 60%),var(--gold-grad);color:#1A1405;box-shadow:0 30px 60px rgba(201,149,32,.25)}
+.cta h2{font-size:clamp(28px,3.4vw,42px);letter-spacing:-.02em}
+.cta h2 .serif{font-size:1.06em}
+.cta p{margin-top:8px;color:#3B2E0C;max-width:52ch}
+.cta .btn-dark{background:#0A2547;color:#fff}
+.cta .btn-dark:hover{background:#12386B}
+
+/* Page heads */
+.page-head{background:linear-gradient(165deg,#103463,#0A2547 60%,#071A33);border:0;position:relative;overflow:hidden}
+.page-head::after{content:"";position:absolute;right:-80px;top:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(closest-side,rgba(240,197,90,.22),transparent)}
+.page-head .wrap{padding-block:40px;position:relative;z-index:1}
+.page-head h1{color:#fff;font-size:clamp(32px,4vw,48px);letter-spacing:-.02em}
+.page-head .crumbs{color:#9FB2CF}
+.filters,.panel{border-radius:18px}
+.filters{border:0;box-shadow:var(--shadow)}
+.dash-head{background:linear-gradient(165deg,#103463,#0A2547 60%,#071A33);border:0;color:#DCE6F4}
+.dash-head h1{color:#fff}
+.dash-head .eyebrow{color:#F0C55A}
+.dash-head .muted{color:#AFC1DB}
+.dash-head .btn-ghost{color:#fff;border-color:rgba(255,255,255,.3)}
+.dash-head .btn-ghost:hover{background:rgba(255,255,255,.08)}
+.dash-head .btn-primary{background:var(--gold-grad);color:#1A1405}
+.stat{border:0;box-shadow:var(--shadow);border-radius:18px;position:relative;overflow:hidden}
+.stat::before{content:"";position:absolute;inset:0 0 auto;height:3px;background:var(--gold-grad)}
+.res-card{border:0;box-shadow:var(--shadow);border-radius:18px}
+.auth{border:0;box-shadow:0 30px 70px rgba(15,30,51,.14);border-radius:24px}
+.auth-side{background:radial-gradient(400px 260px at 100% 0%,rgba(240,197,90,.2),transparent 60%),linear-gradient(170deg,#12386B,#071A33)}
+.side{background:linear-gradient(180deg,#0A2547,#071A33)}
+
+/* Footer */
+.foot{background:#06162C;border-top:0;color:#AFC1DB}
+.foot h4{color:#fff}
+.foot ul{color:#AFC1DB}
+.foot ul button:hover{color:#F0C55A}
+.foot .muted{color:#8FA3C2}
+.foot .brand{color:#fff}
+.foot .brand b span{color:#F0C55A}
+.foot .brand small{color:#8FA3C2}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.08)}
+.foot-bottom .wrap{color:#7F94B5}
+.foot .wrap{padding-block:56px}
+
+/* Load-in (from visible state) */
+@keyframes rise{from{transform:translateY(14px)}to{transform:none}}
+.hero h1,.hero .lead,.search-card{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+.hero .lead{animation-delay:.06s}.search-card{animation-delay:.12s}
+
+@media (max-width:1020px){
+  .hero .wrap{grid-template-columns:1fr;padding-block:52px 32px}
+  .showcase{display:none}
+  .search-card{grid-template-columns:1fr 1fr;gap:4px}
+  .search-card .field{border-right:0;border-bottom:1px solid var(--line)}
+  .search-card .field:first-child{grid-column:1/-1}
+  .search-card .btn{grid-column:1/-1;padding-block:14px}
+  .hero-stats .wrap{grid-template-columns:repeat(2,1fr)}
+  .bento{grid-template-columns:1fr 1fr;grid-template-rows:none}
+  .bento .tile:first-child{grid-row:auto;grid-column:1/-1}
+  .bento .tile:first-child .art{min-height:220px}
+  .standard{grid-template-columns:1fr 1fr}
+  .testi{grid-template-columns:1fr}
+  .cta{grid-template-columns:1fr;padding:32px}
+}
+@media (max-width:760px){
+  .section{padding-block:60px}
+  .steps{grid-template-columns:1fr}
+  .step{border-right:0;border-bottom:1px solid var(--line)}
+  .step:last-child{border-bottom:0}
+  .feature-quote{padding:28px}
+}
+@media (max-width:440px){
+  .search-card{grid-template-columns:1fr}
+  .bento{grid-template-columns:1fr}
+  .standard{grid-template-columns:1fr}
+  .hstat b{font-size:32px}
+}
+
+</style>
+<style>
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+
+
+<div class="topbar"><div class="wrap"><span>Pickup only at our General Santos City shop · <b>No delivery</b></span><span class="hide-sm">Open Mon–Sat 8:00 AM – 6:00 PM · Sun 9:00 AM – 3:00 PM</span></div></div>
+<header class="hdr"><div class="wrap">
+  <button class="brand" data-go="home" aria-label="RentHub GenSan home"><img src="assets/logo.jpg" alt=""><span><b>Rent<span>Hub</span></b><small>GENSAN</small></span></button>
+  <nav class="nav" id="nav"></nav>
+  <div class="hdr-right" id="hdrRight"></div>
+</div></header>
+<main id="app"></main>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<div id="modalRoot"></div>
+
+<script>
+const LOGO = document.querySelector('.brand img').src;
+const peso = n => '₱' + Math.round(n).toLocaleString('en-PH');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $ = s => document.querySelector(s);
+
+/* ---------- dates ---------- */
+const pad = n => String(n).padStart(2,'0');
+const iso = d => d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const parse = s => { const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); };
+const addDays = (s, n) => { const d = parse(s); d.setDate(d.getDate()+n); return iso(d); };
+const TODAY = iso(new Date());
+const daysBetween = (a,b) => Math.round((parse(b)-parse(a))/86400000);
+const rentalDays = (a,b) => Math.max(1, daysBetween(a,b));
+const fmt = s => parse(s).toLocaleDateString('en-PH',{month:'short',day:'numeric',year:'numeric'});
+const fmtShort = s => parse(s).toLocaleDateString('en-PH',{month:'short',day:'numeric'});
+const fmtDow = s => parse(s).toLocaleDateString('en-PH',{weekday:'short'});
+const eachDay = (a,b) => { const out=[]; let d=a; while(d<=b){ out.push(d); d=addDays(d,1);} return out; };
+
+/* ---------- catalog data ---------- */
+const CATS = [
+  {id:'events', name:'Events & Parties', blurb:'Seating, tables and sound for birthdays, weddings and fiestas.', hero:'tables'},
+  {id:'entertainment', name:'Entertainment', blurb:'Karaoke nights, movie screenings and game tables.', hero:'karaoke'},
+  {id:'photography', name:'Photography', blurb:'Cameras and lighting gear for shoots on land and underwater.', hero:'dslr'},
+  {id:'outdoor', name:'Outdoor & Camping', blurb:'Tents, chairs and tables for Lake Sebu and mountain trips.', hero:'tent'},
+  {id:'beach', name:'Beach & Water', blurb:'Snorkeling and safety gear for Sarangani Bay outings.', hero:'mask'},
+];
+const SEED_ITEMS = [
+  {id:'chairs', cat:'events', name:'Event Chairs', price:15, unit:'chair', deposit:50, stock:200, desc:'White resin monoblock chairs with seat covers available on request. Stackable, easy to transport in a pickup or van.', includes:['Wiped and sanitized before release','Stack of 10 per bundle','Optional white seat cover (+₱10)']},
+  {id:'tables', cat:'events', name:'Event Tables', price:150, unit:'table', deposit:300, stock:30, desc:'6-ft rectangular folding tables that seat 6–8 guests. Comes with a white table cloth.', includes:['White table cloth included','Folding steel legs','Seats 6–8 guests']},
+  {id:'sound', cat:'events', name:'Sound System', price:1500, unit:'set', deposit:3000, stock:3, desc:'Pair of 15-inch powered speakers with a 12-channel mixer and two wireless microphones. Good for up to 150 guests.', includes:['2 × 15" powered speakers with stands','12-channel mixer','2 wireless mics','Cables and extension reel']},
+  {id:'karaoke', cat:'entertainment', name:'Karaoke Machine', price:800, unit:'set', deposit:1500, stock:4, desc:'Plug-and-play videoke unit with 30,000+ songs, scoring, and two wired microphones. Connects to any TV via HDMI.', includes:['Videoke player with song book','2 wired microphones','HDMI and remote control']},
+  {id:'boardgames', cat:'entertainment', name:'Board Games', price:150, unit:'game', deposit:500, stock:12, desc:'Pick from party and strategy titles for 2–10 players. Each box is counted and checked before release.', includes:['Complete set, piece-counted','Rules sheet in English and Filipino','Pick titles at the counter']},
+  {id:'projector', cat:'entertainment', name:'Projector and Screen', price:1200, unit:'set', deposit:3000, stock:3, desc:'Full HD 3,500-lumen projector with a 100-inch tripod screen. Ideal for outdoor movie nights and presentations.', includes:['1080p projector, 3,500 lumens','100" tripod screen','HDMI cable and carry case']},
+  {id:'dslr', cat:'photography', name:'DSLR Camera', price:1200, unit:'kit', deposit:5000, stock:4, desc:'24MP DSLR with an 18–55mm kit lens, 64GB card and two batteries. Great for events, portraits and travel.', includes:['24MP body + 18–55mm lens','64GB SD card','2 batteries and charger','Padded camera bag']},
+  {id:'underwater', cat:'photography', name:'Underwater Camera', price:700, unit:'kit', deposit:3000, stock:4, desc:'4K action camera in a 40m waterproof housing with a floating hand grip. Built for snorkeling and diving.', includes:['4K action camera','Waterproof housing (40m)','Floating hand grip','32GB card']},
+  {id:'reflector', cat:'photography', name:'Photography Reflector Set', price:250, unit:'set', deposit:800, stock:5, desc:'5-in-1 collapsible 110cm reflector with gold, silver, white, black and diffuser surfaces, plus a holder arm.', includes:['5-in-1 reflector, 110cm','Light stand with holder arm','Zip carry bag']},
+  {id:'tent', cat:'outdoor', name:'Camping Tent', price:450, unit:'tent', deposit:1000, stock:10, desc:'Waterproof 4-person dome tent with rain fly and ground sheet. Sets up in about 10 minutes.', includes:['4-person dome tent','Rain fly and ground sheet','Stakes and guy lines']},
+  {id:'campchair', cat:'outdoor', name:'Folding Camping Chair', price:80, unit:'chair', deposit:200, stock:20, desc:'Lightweight steel-frame chair with cup holder and shoulder bag. Supports up to 120kg.', includes:['Cup holder armrest','Carry bag with strap','120kg capacity']},
+  {id:'camptable', cat:'outdoor', name:'Folding Camping Table', price:180, unit:'table', deposit:400, stock:8, desc:'Aluminum roll-top table that folds into a carry bag. Fits 4 people for meals at camp.', includes:['Aluminum roll-top','Adjustable legs','Carry bag']},
+  {id:'fins', cat:'beach', name:'Swim/Diving Fins', price:100, unit:'pair', deposit:300, stock:16, desc:'Open-heel adjustable fins for snorkeling and recreational diving. Sizes S to XL.', includes:['Adjustable heel strap','Sizes S–XL','Rinsed and sanitized']},
+  {id:'mask', cat:'beach', name:'Diving Mask', price:120, unit:'mask', deposit:300, stock:16, desc:'Tempered-glass mask with silicone skirt and a dry-top snorkel. Anti-fog treated before every rental.', includes:['Tempered-glass lens','Dry-top snorkel','Anti-fog treated']},
+  {id:'vest', cat:'beach', name:'Life Vest – Kids and Adults', price:100, unit:'vest', deposit:300, stock:20, desc:'Coast-guard-style buoyancy vests with buckles and crotch strap. Available in kids (15–40kg) and adult sizes.', includes:['Kids and adult sizes','Buckle closure + crotch strap','Reflective tape']},
+];
+
+/* ---------- illustrations ---------- */
+const A='var(--art-a)',B='var(--art-b)',C='var(--art-c)',D='var(--art-d)',E='var(--art-e)';
+const ART = {
+ chairs:`<rect x="38" y="20" width="36" height="40" rx="10" fill="${C}" stroke="${A}" stroke-width="4"/><rect x="34" y="58" width="44" height="10" rx="4" fill="${C}" stroke="${A}" stroke-width="4"/><path d="M40 68l-4 34M72 68l4 34" stroke="${A}" stroke-width="4" stroke-linecap="round"/><rect x="84" y="28" width="36" height="40" rx="10" fill="${C}" stroke="${A}" stroke-width="4"/><rect x="80" y="66" width="44" height="10" rx="4" fill="${C}" stroke="${A}" stroke-width="4"/><path d="M86 76l-4 30M118 76l4 30" stroke="${A}" stroke-width="4" stroke-linecap="round"/><path d="M46 30h20M92 38h20" stroke="${B}" stroke-width="4" stroke-linecap="round"/>`,
+ tables:`<ellipse cx="80" cy="44" rx="58" ry="14" fill="${C}" stroke="${A}" stroke-width="4"/><path d="M22 44v34c0 6 26 14 58 14s58-8 58-14V44" fill="${C}" stroke="${A}" stroke-width="4"/><path d="M40 60v28M60 62v30M80 62v30M100 62v30M120 60v28" stroke="${A}" stroke-opacity=".25" stroke-width="3"/><path d="M22 78c0 6 26 14 58 14s58-8 58-14" fill="none" stroke="${B}" stroke-width="4"/><circle cx="64" cy="40" r="5" fill="${B}"/><circle cx="96" cy="40" r="5" fill="${B}"/><path d="M80 30v8" stroke="${D}" stroke-width="4" stroke-linecap="round"/>`,
+ sound:`<rect x="18" y="18" width="44" height="78" rx="6" fill="${A}"/><circle cx="40" cy="70" r="15" fill="${C}"/><circle cx="40" cy="70" r="6" fill="${A}"/><circle cx="40" cy="36" r="8" fill="${C}"/><rect x="98" y="18" width="44" height="78" rx="6" fill="${A}"/><circle cx="120" cy="70" r="15" fill="${C}"/><circle cx="120" cy="70" r="6" fill="${A}"/><circle cx="120" cy="36" r="8" fill="${C}"/><rect x="64" y="72" width="32" height="24" rx="4" fill="${C}" stroke="${A}" stroke-width="3"/><path d="M70 80v10M76 78v12M82 82v8M88 79v11" stroke="${B}" stroke-width="3" stroke-linecap="round"/><path d="M72 30c4-6 12-6 16 0M68 22c7-10 17-10 24 0" fill="none" stroke="${B}" stroke-width="3" stroke-linecap="round"/>`,
+ karaoke:`<rect x="20" y="20" width="84" height="56" rx="6" fill="${A}"/><rect x="26" y="26" width="72" height="44" rx="3" fill="${C}"/><path d="M50 58V36l20-4v22" fill="none" stroke="${B}" stroke-width="4" stroke-linejoin="round"/><circle cx="46" cy="58" r="5" fill="${B}"/><circle cx="66" cy="54" r="5" fill="${B}"/><rect x="50" y="76" width="24" height="6" fill="${A}"/><rect x="36" y="82" width="52" height="6" rx="3" fill="${A}"/><g transform="rotate(-28 128 60)"><circle cx="128" cy="34" r="12" fill="${B}"/><path d="M118 34h20" stroke="${A}" stroke-width="2"/><rect x="123" y="44" width="10" height="50" rx="4" fill="${A}"/></g>`,
+ boardgames:`<rect x="18" y="28" width="80" height="68" rx="6" fill="${C}" stroke="${A}" stroke-width="4"/><path d="M18 51h80M18 73h80M45 28v68M71 28v68" stroke="${A}" stroke-opacity=".3" stroke-width="3"/><rect x="47" y="53" width="22" height="18" fill="${B}" opacity=".7"/><rect x="104" y="58" width="34" height="34" rx="7" fill="${C}" stroke="${A}" stroke-width="4" transform="rotate(12 121 75)"/><circle cx="114" cy="68" r="3.5" fill="${A}"/><circle cx="122" cy="76" r="3.5" fill="${A}"/><circle cx="130" cy="84" r="3.5" fill="${A}"/><path d="M118 20c-6 0-8 6-6 10l-6 16h24l-6-16c2-4 0-10-6-10z" fill="${D}"/>`,
+ projector:`<rect x="70" y="10" width="76" height="56" rx="3" fill="${C}" stroke="${A}" stroke-width="3"/><path d="M108 66v40M94 106l14-14 14 14" stroke="${A}" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M48 70L74 18v48z" fill="${B}" opacity=".25"/><rect x="12" y="62" width="58" height="32" rx="8" fill="${A}"/><circle cx="54" cy="78" r="11" fill="${C}"/><circle cx="54" cy="78" r="5" fill="${B}"/><circle cx="24" cy="72" r="3" fill="${B}"/><path d="M20 94v6M62 94v6" stroke="${A}" stroke-width="4" stroke-linecap="round"/>`,
+ dslr:`<path d="M24 40h22l8-12h32l8 12h22a6 6 0 016 6v44a6 6 0 01-6 6H24a6 6 0 01-6-6V46a6 6 0 016-6z" fill="${A}"/><circle cx="70" cy="66" r="24" fill="${C}"/><circle cx="70" cy="66" r="17" fill="${A}"/><circle cx="70" cy="66" r="10" fill="${B}"/><circle cx="65" cy="61" r="3" fill="${C}"/><rect x="104" y="48" width="12" height="6" rx="2" fill="${B}"/><rect x="28" y="32" width="12" height="6" rx="2" fill="${A}"/>`,
+ underwater:`<rect x="34" y="30" width="78" height="60" rx="14" fill="${E}" opacity=".35"/><rect x="34" y="30" width="78" height="60" rx="14" fill="none" stroke="${A}" stroke-width="4"/><rect x="46" y="42" width="54" height="36" rx="6" fill="${A}"/><circle cx="73" cy="60" r="12" fill="${C}"/><circle cx="73" cy="60" r="6" fill="${B}"/><rect x="62" y="90" width="22" height="22" rx="5" fill="${B}"/><circle cx="126" cy="38" r="6" fill="none" stroke="${E}" stroke-width="3"/><circle cx="134" cy="22" r="4" fill="none" stroke="${E}" stroke-width="3"/><circle cx="122" cy="56" r="3" fill="none" stroke="${E}" stroke-width="2.5"/>`,
+ reflector:`<circle cx="74" cy="52" r="40" fill="${B}"/><path d="M74 12a40 40 0 010 80z" fill="${C}" stroke="${A}" stroke-width="2"/><circle cx="74" cy="52" r="40" fill="none" stroke="${A}" stroke-width="4"/><path d="M74 92v18M60 112l14-6 14 6" stroke="${A}" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M126 30l14-8M128 52h16M126 74l14 8" stroke="${B}" stroke-width="4" stroke-linecap="round"/>`,
+ tent:`<path d="M80 18L18 100h124z" fill="${A}"/><path d="M80 18L60 100h40z" fill="${B}"/><path d="M80 52L68 100h24z" fill="${A}" opacity=".85"/><path d="M80 10v12" stroke="${A}" stroke-width="4" stroke-linecap="round"/><path d="M8 102h144" stroke="${D}" stroke-width="5" stroke-linecap="round"/><path d="M130 72l8-14 8 14z M130 86l8-16 8 16z" fill="${D}"/>`,
+ campchair:`<path d="M44 26h72v44H44z" fill="${D}"/><path d="M40 70h80" stroke="${A}" stroke-width="5" stroke-linecap="round"/><path d="M48 26l56 80M112 26l-56 80" stroke="${A}" stroke-width="5" stroke-linecap="round"/><path d="M36 54h18v10H36zM106 54h18v10h-18z" fill="${B}"/><circle cx="115" cy="52" r="6" fill="${C}" stroke="${A}" stroke-width="3"/>`,
+ camptable:`<rect x="18" y="34" width="124" height="14" rx="4" fill="${B}"/><path d="M30 41h100" stroke="${A}" stroke-opacity=".3" stroke-width="2"/><path d="M40 48l42 56M82 48l-42 56M80 48l42 56M122 48l-42 56" stroke="${A}" stroke-width="4" stroke-linecap="round"/><rect x="50" y="20" width="12" height="14" rx="2" fill="${D}"/><circle cx="104" cy="28" r="6" fill="${C}" stroke="${A}" stroke-width="3"/>`,
+ fins:`<path d="M30 22c10-6 22-4 26 6l18 64c2 8-30 14-36 4L22 34c-2-6 2-10 8-12z" fill="${E}"/><path d="M30 22c10-6 22-4 26 6l4 16H24z" fill="${A}"/><path d="M90 30c10-6 22-4 26 6l18 64c2 8-30 14-36 4L82 42c-2-6 2-10 8-12z" fill="${B}"/><path d="M90 30c10-6 22-4 26 6l4 16H84z" fill="${A}"/><path d="M40 60l10 38M100 68l10 36" stroke="${C}" stroke-width="3" opacity=".6"/>`,
+ mask:`<path d="M20 44c0-12 12-18 30-18h40c18 0 30 6 30 18v18c0 14-10 22-24 22-10 0-14-10-26-10s-16 10-26 10c-14 0-24-8-24-22z" fill="${A}"/><path d="M30 46c0-8 8-10 20-10h14v30c-8 0-10 8-18 8-10 0-16-6-16-14zM110 46c0-8-8-10-20-10H76v30c8 0 10 8 18 8 10 0 16-6 16-14z" fill="${E}" opacity=".55"/><path d="M134 92V20c0-6 6-8 10-4" fill="none" stroke="${B}" stroke-width="7" stroke-linecap="round"/><path d="M120 92h14" stroke="${B}" stroke-width="7" stroke-linecap="round"/>`,
+ vest:`<path d="M52 14h16l12 20 12-20h16l18 22v62c0 6-4 10-10 10H44c-6 0-10-4-10-10V36z" fill="${B}"/><path d="M80 34v74" stroke="${A}" stroke-width="3"/><path d="M34 58h92M34 80h92" stroke="${A}" stroke-width="6"/><rect x="72" y="52" width="16" height="12" rx="2" fill="${A}"/><rect x="72" y="74" width="16" height="12" rx="2" fill="${A}"/><path d="M42 98h76" stroke="${C}" stroke-width="4" opacity=".8"/>`,
+};
+const art = (id, cat, extra='') => `<div class="art" data-cat="${cat}" ${extra}><svg viewBox="0 0 160 120" aria-hidden="true">${ART[id]||ART.tent}</svg></div>`;
+
+/* ---------- icons ---------- */
+const I = {
+ cart:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.4a2 2 0 002 1.6h8.8a2 2 0 002-1.5L22 7H6"/></svg>',
+ menu:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
+ x:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+ check:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+ store:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M3 9v11h18V9M3 9h18M9 20v-6h6v6"/></svg>',
+ shield:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',
+ cal:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+ id:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2.5"/><path d="M14 10h4M14 14h4"/></svg>',
+ info:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>',
+ sparkle:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/></svg>',
+ grid:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
+ list:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>',
+ box:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>',
+ users:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 010 7M18 14.8c1.8.7 3 2.5 3.5 5.2"/></svg>',
+ logout:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></svg>',
+ plus:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+ bag:'<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg>',
+};
+
+/* ---------- state & storage ---------- */
+const KEY = 'renthub_gensan_preview_v1';
+function seed(){
+  const users = [
+    {id:'u_admin', name:'RentHub Admin', email:'admin@renthubgensan.ph', pass:'admin123', phone:'0917 000 0000', role:'admin', joined:addDays(TODAY,-210)},
+    {id:'u1', name:'Juan Dela Cruz', email:'juan@example.com', pass:'demo123', phone:'0917 555 0142', role:'customer', joined:addDays(TODAY,-120)},
+    {id:'u2', name:'Maria Santos', email:'maria.santos@example.com', pass:'demo123', phone:'0918 222 3491', role:'customer', joined:addDays(TODAY,-64)},
+    {id:'u3', name:'Paolo Reyes', email:'paolo.r@example.com', pass:'demo123', phone:'0927 410 8833', role:'customer', joined:addDays(TODAY,-30)},
+    {id:'u4', name:'Aileen Villanueva', email:'aileen.v@example.com', pass:'demo123', phone:'0995 118 2207', role:'customer', joined:addDays(TODAY,-12)},
+  ];
+  const mk = (code,userId,lines,s,e,status,slot,pay,created) => ({code,userId,lines:lines.map(([itemId,qty])=>({itemId,qty,price:SEED_ITEMS.find(i=>i.id===itemId).price})),start:addDays(TODAY,s),end:addDays(TODAY,e),status,slot,pay,created:addDays(TODAY,created),notes:''});
+  const reservations = [
+    mk('RH-24817','u1',[['sound',1],['chairs',80],['tables',10]],3,5,'confirmed','9:00 AM','shop',-4),
+    mk('RH-24822','u2',[['sound',2]],4,5,'pending','10:00 AM','gcash',-1),
+    mk('RH-24790','u3',[['tent',3],['campchair',6],['camptable',2]],0,2,'picked_up','8:00 AM','shop',-6),
+    mk('RH-24805','u4',[['mask',4],['fins',4],['vest',4],['underwater',1]],0,1,'confirmed','1:00 PM','gcash',-3),
+    mk('RH-24761','u1',[['karaoke',1],['projector',1]],-14,-12,'returned','3:00 PM','shop',-20),
+    mk('RH-24733','u2',[['dslr',1],['reflector',1]],-9,-8,'returned','10:00 AM','gcash',-15),
+    mk('RH-24829','u3',[['projector',2],['boardgames',3]],7,8,'pending','2:00 PM','shop',0),
+    mk('RH-24701','u4',[['tables',4]],-5,-4,'cancelled','9:00 AM','shop',-10),
+  ];
+  return {items:SEED_ITEMS.map(i=>({...i,status:'active'})), users, reservations, session:null, cart:[], period:{start:addDays(TODAY,1), end:addDays(TODAY,2)}};
+}
+let DB;
+try { DB = JSON.parse(localStorage.getItem(KEY)) } catch(e) { DB = null }
+if(!DB || !DB.items) DB = seed();
+if(DB.period.start < TODAY) DB.period = {start:addDays(TODAY,1), end:addDays(TODAY,2)};
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(DB)) }catch(e){} }
+
+const UI = {view:'home', cat:'all', q:'', checkout:null, lastCode:null, adminTab:'overview', resFilter:'all', resQ:'', authMode:'login', authNext:null, acctTab:'reservations', menu:false, sort:'popular'};
+
+const item = id => DB.items.find(i=>i.id===id);
+const user = id => DB.users.find(u=>u.id===id);
+const me = () => DB.session ? user(DB.session) : null;
+const catName = id => (CATS.find(c=>c.id===id)||{}).name || id;
+const HOLD = ['pending','confirmed','picked_up'];
+const STATUS = {pending:['Awaiting confirmation','warn'], confirmed:['Confirmed','info'], picked_up:['Picked up','ok'], returned:['Returned','neutral'], cancelled:['Cancelled','bad']};
+const statusPill = s => `<span class="pill ${STATUS[s][1]}">${STATUS[s][0]}</span>`;
+const resTotal = r => r.lines.reduce((a,l)=>a+l.price*l.qty,0)*rentalDays(r.start,r.end);
+const resDeposit = r => r.lines.reduce((a,l)=>a+(item(l.itemId)?.deposit||0)*l.qty,0);
+
+/* ---------- double-booking engine ---------- */
+function bookedOn(itemId, day, exclude){
+  let n=0;
+  for(const r of DB.reservations){
+    if(r.code===exclude || !HOLD.includes(r.status)) continue;
+    if(r.start<=day && day<=r.end) for(const l of r.lines) if(l.itemId===itemId) n+=l.qty;
+  }
+  return n;
+}
+function available(itemId, start, end, exclude){
+  const it=item(itemId); if(!it || it.status!=='active') return 0;
+  let peak=0; for(const d of eachDay(start,end)) peak=Math.max(peak,bookedOn(itemId,d,exclude));
+  return Math.max(0, it.stock-peak);
+}
+function conflicts(lines, start, end, exclude){
+  const need={}; lines.forEach(l=>need[l.itemId]=(need[l.itemId]||0)+l.qty);
+  return Object.entries(need).filter(([id,q])=>available(id,start,end,exclude)<q).map(([id,q])=>({id,need:q,have:available(id,start,end,exclude)}));
+}
+function availPill(it){
+  if(it.status!=='active') return '<span class="pill neutral">Under maintenance</span>';
+  const a=available(it.id,DB.period.start,DB.period.end);
+  if(a===0) return '<span class="pill bad">Fully booked</span>';
+  if(a<=Math.max(2,Math.ceil(it.stock*.2))) return `<span class="pill warn">Only ${a} left</span>`;
+  return `<span class="pill ok">${a} available</span>`;
+}
+
+/* ---------- toast / modal ---------- */
+function toast(msg, bad){ const t=document.createElement('div'); t.className='toast'+(bad?' bad':''); t.textContent=msg; $('#toasts').appendChild(t); setTimeout(()=>t.remove(),3200); }
+function openModal(html, cls=''){ $('#modalRoot').innerHTML=`<div class="overlay" data-close><div class="modal ${cls}" role="dialog" aria-modal="true"><button class="icon-btn modal-x" data-close aria-label="Close">${I.x}</button>${html}</div></div>`; }
+function closeModal(){ $('#modalRoot').innerHTML=''; }
+function confirmBox(title, body, okLabel, onOk, danger){
+  openModal(`<div class="panel-b" style="padding:28px;display:grid;gap:14px"><h3 style="font-size:22px;padding-right:40px">${title}</h3><p class="muted">${body}</p><div class="row" style="justify-content:flex-end"><button class="btn btn-ghost" data-close>Keep it</button><button class="btn ${danger?'btn-danger':'btn-primary'}" id="okBtn">${okLabel}</button></div></div>`,'sm');
+  $('#okBtn').onclick=()=>{ closeModal(); onOk(); };
+}
+
+/* ---------- navigation ---------- */
+function go(view, opts={}){ Object.assign(UI, opts, {view, menu:false}); render(); window.scrollTo({top:0}); }
+function renderHeader(){
+  const u=me(); const isAdmin=u&&u.role==='admin';
+  const links = [['home','Home'],['catalog','Equipment'],['how','How it works']];
+  if(u && !isAdmin) links.push(['account','My reservations']);
+  if(isAdmin) links.push(['admin','Admin']);
+  $('#nav').className='nav'+(UI.menu?' open':'');
+  $('#nav').innerHTML = links.map(([v,l])=>`<button data-go="${v}" class="${UI.view===v||(v==='catalog'&&UI.view==='item')?'on':''}">${l}</button>`).join('');
+  const count = DB.cart.reduce((a,l)=>a+l.qty,0);
+  $('#hdrRight').innerHTML = `
+    <button class="icon-btn" data-go="cart" aria-label="Cart, ${count} items">${I.cart}${count?`<span class="badge-count num">${count>99?'99+':count}</span>`:''}</button>
+    ${u ? `<button class="user-chip" data-go="${isAdmin?'admin':'account'}"><span class="avatar">${esc(initials(u.name))}</span><span class="nm">${esc(u.name.split(' ')[0])}</span></button>`
+        : `<button class="btn btn-primary btn-sm" data-go="auth">Log in</button>`}
+    <button class="icon-btn menu-toggle" id="menuBtn" aria-label="Menu">${I.menu}</button>`;
+}
+const initials = n => n.split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+
+/* ---------- pages ---------- */
+function pageHome(){
+  const popular=['sound','karaoke','dslr','tent'].map(item).filter(Boolean);
+  const from=id=>peso(item(id).price);
+  const arr='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  return `
+  <section class="hero"><div class="wrap">
+    <div>
+      <span class="hero-kicker"><b>Now open</b> General Santos City's equipment rental hub</span>
+      <h1>Everything for the occasion, <span class="serif">ready when you are.</span></h1>
+      <p class="lead">Event, entertainment, camera, camping and beach gear under one roof. Reserve online with live availability, then collect it at our counter, inspected and ready to go.</p>
+      <form class="search-card" id="heroSearch">
+        <div class="field"><label for="hs-cat">What do you need?</label><select class="input" id="hs-cat"><option value="all">All equipment</option>${CATS.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')}</select></div>
+        <div class="field"><label for="hs-start">Pickup</label><input class="input" type="date" id="hs-start" min="${TODAY}" value="${DB.period.start}"></div>
+        <div class="field"><label for="hs-end">Return</label><input class="input" type="date" id="hs-end" min="${TODAY}" value="${DB.period.end}"></div>
+        <button class="btn btn-gold" type="submit">Check availability</button>
+      </form>
+      <div class="hero-trust">
+        <span>${I.shield} Inspected after every rental</span>
+        <span>${I.cal} Units held the moment you book</span>
+        <span>${I.store} Counter pickup only</span>
+      </div>
+    </div>
+    <div class="showcase">
+      <div class="seal"><img src="${LOGO}" alt="RentHub GenSan logo"></div>
+      <div class="plinth p1">${art('dslr','photography')}<div><b>DSLR Camera</b><span>from <em>${from('dslr')}</em>/day</span></div></div>
+      <div class="plinth p2">${art('sound','events')}<div><b>Sound System</b><span>from <em>${from('sound')}</em>/day</span></div></div>
+      <div class="plinth p3">${art('tent','outdoor')}<div><b>Camping Tent</b><span>from <em>${from('tent')}</em>/day</span></div></div>
+    </div>
+  </div>
+  <div class="hero-stats"><div class="wrap">
+    <div class="hstat"><b>${DB.items.length}</b>rental lines in stock</div>
+    <div class="hstat"><b>5</b>curated categories</div>
+    <div class="hstat"><b>Same <i>day</i></b>pickup on open dates</div>
+    <div class="hstat"><b>${peso(Math.min(...DB.items.map(i=>i.price)))}</b>lowest daily rate</div>
+  </div></div></section>
+
+  <section class="section"><div class="wrap">
+    <div class="sec-head"><div><div class="eyebrow">The collection</div><h2>Five categories, <span class="serif">one counter.</span></h2><p>Every item is owned, maintained and released by our own team in General Santos City.</p></div><button class="btn btn-ghost" data-go="catalog">Browse all equipment ${arr}</button></div>
+    <div class="bento">${CATS.map(c=>{const its=DB.items.filter(i=>i.cat===c.id);const lo=Math.min(...its.map(i=>i.price));return `<button class="tile" data-cat-go="${c.id}">${art(c.hero,c.id)}<div class="tile-body"><h3>${c.name}<span class="arr">${arr}</span></h3><small>${its.map(i=>i.name).join(' · ')}</small><span class="cat-meta">From ${peso(lo)} / day</span></div></button>`}).join('')}</div>
+  </div></section>
+
+  <section class="section" style="padding-top:0"><div class="wrap">
+    <div class="sec-head"><div><div class="eyebrow">Most reserved</div><h2>Popular with <span class="serif">GenSan renters</span></h2></div><button class="btn btn-ghost" data-go="catalog">See full catalog ${arr}</button></div>
+    <div class="grid">${popular.map(productCard).join('')}</div>
+  </div></section>
+
+  <section class="section" style="padding-top:0"><div class="wrap">
+    <div class="sec-head center"><div class="eyebrow">The RentHub standard</div><h2>Gear you can <span class="serif">count on</span></h2><p>The difference between a rental and a good rental is what happens before it reaches your hands.</p></div>
+    <div class="standard">
+      <div class="std"><span class="ring">${I.shield}</span><h3>Inspected and sanitized</h3><p>Every unit is cleaned, tested and logged after each return, before it goes back on the shelf.</p></div>
+      <div class="std"><span class="ring">${I.cal}</span><h3>No double bookings</h3><p>Your units are held the second you reserve. Nobody else can book them for your dates.</p></div>
+      <div class="std"><span class="ring">${I.box}</span><h3>Complete kits</h3><p>Cables, cases, batteries and covers are counted in. You won't discover a missing piece on site.</p></div>
+      <div class="std"><span class="ring">${I.store}</span><h3>Face-to-face release</h3><p>We walk you through each item at the counter. Pickup only, so high-value gear stays accounted for.</p></div>
+    </div>
+  </div></section>
+
+  <section class="section" id="how" style="padding-top:0"><div class="wrap">
+    <div class="sec-head"><div><div class="eyebrow">How renting works</div><h2>Reserve online, <span class="serif">pick up in person</span></h2><p>Three steps from browsing to holding your gear. We don't deliver or ship.</p></div></div>
+    ${stepsHtml()}
+  </div></section>
+
+  ${pickupBand()}
+
+  <section class="section"><div class="wrap">
+    <div class="sec-head"><div><div class="eyebrow">From our renters</div><h2>Trusted for fiestas, debuts <span class="serif">and weekend trips</span></h2></div></div>
+    <div class="testi">
+      <figure class="feature-quote" style="margin:0"><div class="stars" aria-label="5 stars">★★★★★</div><p>The sound system and 120 chairs were ready at 8 AM sharp. The counter team tested every mic with us before we left. It felt like dealing with an events company, not a rental shop.</p><footer><span class="avatar" style="background:#D9A229;color:#1A1405">LM</span><span><b>Liza M.</b><br>Debut party, Lagao</span></footer></figure>
+      <div class="side-quotes">
+        ${[['Two tents and the camping table for Lake Sebu. Clean, complete, and the deposit came back the same day.','Carlo D.','Family camping trip'],
+           ['Underwater camera plus masks for the whole barkada. Booking online meant zero waiting at the shop.','Jessa T.','Island hopping, Sarangani']].map(([q,n,w])=>`<figure class="quote" style="margin:0"><div class="stars" aria-label="5 stars">★★★★★</div><p>${q}</p><footer><span class="avatar">${initials(n)}</span><span><b style="color:var(--ink)">${n}</b><br>${w}</span></footer></figure>`).join('')}
+      </div>
+    </div>
+    <div class="rating-sum"><b>4.9</b><span class="stars">★★★★★</span><span>Average renter rating · sample reviews for preview</span></div>
+  </div></section>
+
+  <section class="section" style="padding-top:0"><div class="wrap">
+    <div class="cta"><div><h2>Planning something <span class="serif">this weekend?</span></h2><p>Popular gear books out fast on paydays and holidays. Lock in your dates now and pick up when you're ready.</p></div>
+    <div class="row"><button class="btn btn-dark btn-lg" data-go="catalog">Reserve equipment</button></div></div>
+  </div></section>`;
+}
+function stepsHtml(){
+  return `<div class="steps">
+    <div class="step"><span class="n">1</span><h3>Choose dates and gear</h3><p>Pick your pickup and return dates. The catalog shows how many units are free for exactly those days.</p></div>
+    <div class="step"><span class="n">2</span><h3>Reserve and get a code</h3><p>Check out with your account. Your units are held right away, so nobody else can book them for the same dates.</p></div>
+    <div class="step"><span class="n">3</span><h3>Pick up at our shop</h3><p>Bring your reservation code and a valid government ID. Pay the balance and refundable deposit, inspect the gear, and go.</p></div>
+  </div>`;
+}
+function pickupBand(){
+  return `<section class="pickup-band"><div class="wrap">
+    <div><div class="eyebrow">Pickup policy</div><h2 style="margin-top:8px">All reservations are collected at our physical shop</h2>
+      <ul class="policy-list">
+        <li>${I.id}<span><b style="color:#fff">Valid government ID required.</b> The ID holder must match the account name on the reservation.</span></li>
+        <li>${I.shield}<span><b style="color:#fff">Refundable security deposit</b> is paid at pickup and returned after the gear is checked in good condition.</span></li>
+        <li>${I.box}<span><b style="color:#fff">Inspect before you leave.</b> We test every unit with you at the counter and note its condition.</span></li>
+        <li>${I.store}<span><b style="color:#fff">No delivery or shipping.</b> This keeps high-value equipment secure and accounted for.</span></li>
+      </ul></div>
+    <div class="shop-card"><h3>RentHub GenSan Pickup Counter</h3>
+      <p>Pioneer Avenue, Dadiangas West<br>General Santos City, South Cotabato 9500</p>
+      <dl class="hours"><dt>Mon – Sat</dt><dd>8:00 AM – 6:00 PM</dd><dt>Sunday</dt><dd>9:00 AM – 3:00 PM</dd><dt>Phone</dt><dd>(083) 552 0000</dd><dt>Email</dt><dd>hello@renthubgensan.ph</dd></dl>
+      <p style="font-size:12.5px;color:#9FB2CF">Address and contact details are placeholders for this preview.</p>
+    </div>
+  </div></section>`;
+}
+function productCard(it){
+  return `<article class="card">
+    <button class="art" data-cat="${it.cat}" data-item="${it.id}" aria-label="View ${esc(it.name)}"><svg viewBox="0 0 160 120" aria-hidden="true">${ART[it.id]||ART.tent}</svg><span class="tag">${availPill(it)}</span></button>
+    <div class="card-body"><span class="card-cat">${catName(it.cat)}</span><h3>${esc(it.name)}</h3><p class="desc">${esc(it.desc)}</p>
+      <div class="card-foot"><span class="price num">${peso(it.price)} <small>/ ${esc(it.unit)} / day</small></span>
+      <button class="btn btn-primary btn-sm" data-item="${it.id}">Reserve</button></div></div></article>`;
+}
+function periodFields(prefix){
+  return `<div class="two"><div class="field"><label for="${prefix}-s">Pickup</label><input class="input" type="date" id="${prefix}-s" data-period="start" min="${TODAY}" value="${DB.period.start}"></div><div class="field"><label for="${prefix}-e">Return</label><input class="input" type="date" id="${prefix}-e" data-period="end" min="${DB.period.start}" value="${DB.period.end}"></div></div>`;
+}
+function pageCatalog(){
+  let list=DB.items.filter(i=>(UI.cat==='all'||i.cat===UI.cat) && (!UI.q || (i.name+' '+i.desc).toLowerCase().includes(UI.q.toLowerCase())));
+  if(UI.sort==='low') list=[...list].sort((a,b)=>a.price-b.price);
+  if(UI.sort==='high') list=[...list].sort((a,b)=>b.price-a.price);
+  if(UI.sort==='avail') list=[...list].sort((a,b)=>available(b.id,DB.period.start,DB.period.end)/b.stock-available(a.id,DB.period.start,DB.period.end)/a.stock);
+  const d=rentalDays(DB.period.start,DB.period.end);
+  return `<div class="page-head"><div class="wrap"><div class="crumbs">Home / Equipment${UI.cat!=='all'?' / '+catName(UI.cat):''}</div><h1>${UI.cat==='all'?'All equipment':catName(UI.cat)}</h1></div></div>
+  <div class="wrap catalog">
+    <aside class="filters">
+      <div><h4>Rental period</h4><div style="margin-top:8px;display:grid;gap:10px">${periodFields('cf')}<div class="period-note num"><b>${d} day${d>1?'s':''}</b> · ${fmtShort(DB.period.start)} to ${fmtShort(DB.period.end)}<br><span class="muted">Availability below is for these dates.</span></div></div></div>
+      <div><h4>Search</h4><input class="input" id="q" placeholder="Search equipment" value="${esc(UI.q)}" style="margin-top:8px"></div>
+      <div><h4>Category</h4><div class="cat-list" style="margin-top:6px">
+        <button data-cat-set="all" class="${UI.cat==='all'?'on':''}">All equipment <span>${DB.items.length}</span></button>
+        ${CATS.map(c=>`<button data-cat-set="${c.id}" class="${UI.cat===c.id?'on':''}">${c.name}<span>${DB.items.filter(i=>i.cat===c.id).length}</span></button>`).join('')}
+      </div></div>
+    </aside>
+    <div style="min-width:0">
+      <div class="toolbar"><span class="muted">${list.length} item${list.length!==1?'s':''}</span>
+        <div class="row"><label for="sort" class="muted" style="font-size:13px">Sort</label><select class="input" id="sort" style="width:auto"><option value="popular">Featured</option><option value="avail" ${UI.sort==='avail'?'selected':''}>Most available</option><option value="low" ${UI.sort==='low'?'selected':''}>Price: low to high</option><option value="high" ${UI.sort==='high'?'selected':''}>Price: high to low</option></select></div></div>
+      ${list.length?`<div class="grid">${list.map(productCard).join('')}</div>`:`<div class="panel empty">${I.bag}<h3>No equipment matches “${esc(UI.q)}”</h3><button class="btn btn-ghost" id="clearQ">Clear search</button></div>`}
+    </div>
+  </div>`;
+}
+function itemModal(id){
+  const it=item(id); const a=available(id,DB.period.start,DB.period.end);
+  const inCart=DB.cart.find(l=>l.itemId===id)?.qty||0;
+  const max=Math.max(0,a-inCart); const d=rentalDays(DB.period.start,DB.period.end);
+  openModal(`<div class="pd">${art(id,it.cat)}<div class="pd-body">
+    <span class="card-cat">${catName(it.cat)}</span><h2>${esc(it.name)}</h2>
+    <p class="muted">${esc(it.desc)}</p>
+    <ul class="incl">${(it.includes||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+    <div class="kv"><div><small>Rate</small><b>${peso(it.price)} / ${esc(it.unit)} / day</b></div><div><small>Deposit</small><b>${peso(it.deposit)} / ${esc(it.unit)}</b></div></div>
+    ${periodFields('md')}
+    <div class="row" style="justify-content:space-between">${availPill(it)}<span class="muted num" style="font-size:13px">${it.stock} in our inventory${inCart?` · ${inCart} in your cart`:''}</span></div>
+    ${it.id==='vest'?`<div class="field"><label for="md-size">Sizes needed</label><input class="input" id="md-size" placeholder="e.g. 2 kids, 2 adults"></div>`:''}
+    <div class="row" style="justify-content:space-between">
+      <div class="qty"><button data-q="-1" aria-label="Decrease">−</button><input id="mq" type="number" min="1" max="${max}" value="${max?1:0}" aria-label="Quantity"><button data-q="1" aria-label="Increase">+</button></div>
+      <span class="num" id="mqTotal" style="font-weight:700"></span>
+    </div>
+    ${max?`<button class="btn btn-primary" id="addCart">${I.cart} Add to cart</button>`:`<div class="notice bad">${I.info}<span>${it.status!=='active'?'This item is under maintenance and cannot be reserved right now.':inCart?'You already have every free unit for these dates in your cart.':'All units are booked for these dates. Try a different pickup or return date.'}</span></div>`}
+  </div></div>`);
+  const upd=()=>{ const q=Math.min(max,Math.max(1,+$('#mq').value||1)); $('#mq').value=max?q:0; $('#mqTotal').textContent=max?`${peso(it.price*q*d)} for ${d} day${d>1?'s':''}`:''; };
+  upd(); $('#mq').oninput=upd;
+  document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{ $('#mq').value=(+$('#mq').value)+(+b.dataset.q); upd(); });
+  if($('#addCart')) $('#addCart').onclick=()=>{
+    const q=+$('#mq').value; const note=$('#md-size')?.value||'';
+    const ex=DB.cart.find(l=>l.itemId===id); if(ex){ex.qty+=q; if(note) ex.note=note;} else DB.cart.push({itemId:id,qty:q,note});
+    save(); closeModal(); render(); toast(`Added ${q} × ${it.name} to your cart`);
+  };
+}
+function cartTotals(){
+  const d=rentalDays(DB.period.start,DB.period.end);
+  const perDay=DB.cart.reduce((a,l)=>a+item(l.itemId).price*l.qty,0);
+  const dep=DB.cart.reduce((a,l)=>a+item(l.itemId).deposit*l.qty,0);
+  return {d,perDay,rent:perDay*d,dep};
+}
+function pageCart(){
+  const t=cartTotals(); const cf=conflicts(DB.cart,DB.period.start,DB.period.end);
+  if(!DB.cart.length) return `<div class="page-head"><div class="wrap"><div class="crumbs">Home / Cart</div><h1>Your cart</h1></div></div><div class="wrap" style="padding-block:28px 64px"><div class="panel empty">${I.bag}<h3>Your cart is empty</h3><p class="muted">Add chairs, cameras, tents or anything else you need for your dates.</p><button class="btn btn-primary" data-go="catalog">Browse equipment</button></div></div>`;
+  return `<div class="page-head"><div class="wrap"><div class="crumbs">Home / Cart</div><h1>Your cart</h1></div></div>
+  <div class="wrap layout-2">
+    <div class="stack">
+      <div class="panel"><div class="panel-h"><h3>Rental period</h3><span class="muted num">${t.d} day${t.d>1?'s':''} · all items share these dates</span></div><div class="panel-b">${periodFields('cp')}</div></div>
+      ${cf.length?`<div class="notice bad">${I.info}<span><b>Some items aren't available for these dates.</b> ${cf.map(c=>`${esc(item(c.id).name)}: you need ${c.need}, only ${c.have} free`).join('; ')}. Lower the quantity or change dates.</span></div>`:''}
+      <div class="panel"><div class="panel-h"><h3>Equipment</h3><button class="link-btn" data-go="catalog">Add more items</button></div>
+        ${DB.cart.map((l,i)=>{const it=item(l.itemId);const a=available(it.id,DB.period.start,DB.period.end);const bad=a<l.qty;return `<div class="line">${art(it.id,it.cat)}<div style="min-width:0"><h4>${esc(it.name)}</h4><div class="line-meta num">${peso(it.price)} / ${esc(it.unit)} / day · deposit ${peso(it.deposit)}${l.note?` · Sizes: ${esc(l.note)}`:''}</div><div style="margin-top:6px">${bad?`<span class="pill bad">${a} free for these dates</span>`:`<span class="pill ok">Available</span>`}</div></div>
+          <div class="line-right"><div class="qty"><button data-cq="${i}" data-d="-1" aria-label="Decrease">−</button><input value="${l.qty}" data-cqi="${i}" type="number" min="1" aria-label="Quantity"><button data-cq="${i}" data-d="1" aria-label="Increase">+</button></div><span class="num" style="font-weight:700">${peso(it.price*l.qty*t.d)}</span><button class="link-btn" data-rm="${i}" style="font-size:13px">Remove</button></div></div>`}).join('')}
+      </div>
+    </div>
+    <aside class="panel summary"><div class="panel-h"><h3>Summary</h3></div><div class="panel-b">
+      <div class="sum-row"><span>Rental (${peso(t.perDay)} × ${t.d} day${t.d>1?'s':''})</span><b>${peso(t.rent)}</b></div>
+      <div class="sum-row"><span>Refundable deposit</span><b>${peso(t.dep)}</b></div>
+      <div class="sum-row"><span>Delivery</span><span class="muted">Not offered · pickup only</span></div>
+      <div class="sum-row total"><span>Due at pickup</span><span>${peso(t.rent+t.dep)}</span></div>
+      <div class="notice gold" style="margin-top:14px">${I.store}<span>Pick up on <b>${fmt(DB.period.start)}</b> and return by <b>${fmt(DB.period.end)}</b>, 6:00 PM, at our General Santos City shop.</span></div>
+      <button class="btn btn-primary" style="width:100%;margin-top:14px" id="toCheckout" ${cf.length?'disabled':''}>Continue to checkout</button>
+      ${me()?'':'<p class="muted" style="font-size:13px;text-align:center;margin-top:8px">You will be asked to log in or create an account.</p>'}
+    </div></aside>
+  </div>`;
+}
+const SLOTS=['8:00 AM','9:00 AM','10:00 AM','11:00 AM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'];
+function slotsFor(day){ return fmtDow(day)==='Sun' ? SLOTS.filter(s=>['9:00 AM','10:00 AM','11:00 AM','1:00 PM','2:00 PM'].includes(s)) : SLOTS; }
+function pageCheckout(){
+  const u=me(); const t=cartTotals(); const c=UI.checkout||(UI.checkout={slot:slotsFor(DB.period.start)[0],pay:'shop',phone:u.phone,notes:'',agree:false});
+  return `<div class="page-head"><div class="wrap"><div class="crumbs">Cart / Checkout</div><h1>Reserve for pickup</h1></div></div>
+  <div class="wrap layout-2"><form class="stack" id="coForm">
+    <div class="panel"><div class="panel-h"><h3>Pickup time on ${fmt(DB.period.start)}</h3></div><div class="panel-b">
+      <div class="slots">${slotsFor(DB.period.start).map(s=>`<button type="button" class="slot ${c.slot===s?'on':''}" data-slot="${s}">${s}</button>`).join('')}</div>
+      <p class="muted" style="font-size:13px;margin-top:10px">Return by 6:00 PM on ${fmt(DB.period.end)} (3:00 PM on Sundays).</p></div></div>
+    <div class="panel"><div class="panel-h"><h3>Renter details</h3></div><div class="panel-b stack">
+      <div class="two"><div class="field"><label for="co-name">Full name (must match your ID)</label><input class="input" id="co-name" value="${esc(u.name)}" readonly></div><div class="field"><label for="co-phone">Mobile number</label><input class="input" id="co-phone" value="${esc(c.phone)}" required></div></div>
+      <div class="field"><label for="co-notes">Notes for the counter (optional)</label><textarea class="input" id="co-notes" rows="2" placeholder="e.g. We'll bring a pickup truck for the chairs">${esc(c.notes)}</textarea></div>
+    </div></div>
+    <div class="panel"><div class="panel-h"><h3>Payment</h3></div><div class="panel-b stack">
+      <label class="opt"><input type="radio" name="pay" value="shop" ${c.pay==='shop'?'checked':''}><span><b>Pay in full at pickup</b><small>Cash, GCash, Maya or card at the counter. Your units are held until your pickup slot.</small></span></label>
+      <label class="opt"><input type="radio" name="pay" value="gcash" ${c.pay==='gcash'?'checked':''}><span><b>Secure with a 20% GCash down payment (${peso(t.rent*.2)})</b><small>Recommended for peak dates. Pay the balance and deposit at pickup. (Simulated in this preview.)</small></span></label>
+    </div></div>
+    <div class="panel"><div class="panel-b stack">
+      <div class="notice gold">${I.store}<span><b>In-store pickup only.</b> We don't deliver or ship. Bring your reservation code and a valid government ID.</span></div>
+      <label class="toggle"><input type="checkbox" id="co-agree" ${c.agree?'checked':''}> I agree to the rental terms, pickup policy and damage charges.</label>
+      <p class="err" id="coErr" hidden></p>
+      <button class="btn btn-primary" type="submit">Place reservation</button>
+    </div></div>
+  </form>
+  <aside class="panel summary"><div class="panel-h"><h3>Your reservation</h3><button class="link-btn" data-go="cart">Edit</button></div><div class="panel-b">
+    <div class="sum-row"><span class="muted">Dates</span><b>${fmtShort(DB.period.start)} – ${fmtShort(DB.period.end)}</b></div>
+    ${DB.cart.map(l=>{const it=item(l.itemId);return `<div class="sum-row"><span>${l.qty} × ${esc(it.name)}</span><span>${peso(it.price*l.qty*t.d)}</span></div>`}).join('')}
+    <div class="sum-row" style="border-top:1px solid var(--line);margin-top:8px;padding-top:10px"><span>Rental subtotal</span><b>${peso(t.rent)}</b></div>
+    <div class="sum-row"><span>Refundable deposit</span><b>${peso(t.dep)}</b></div>
+    <div class="sum-row total"><span>Total</span><span>${peso(t.rent+t.dep)}</span></div>
+  </div></aside></div>`;
+}
+function placeOrder(){
+  const c=UI.checkout; const err=$('#coErr');
+  c.phone=$('#co-phone').value.trim(); c.notes=$('#co-notes').value.trim(); c.agree=$('#co-agree').checked;
+  if(!/^[0-9 +()-]{7,}$/.test(c.phone)){ err.textContent='Enter a valid mobile number so we can reach you about your pickup.'; err.hidden=false; return; }
+  if(!c.agree){ err.textContent='Please agree to the rental terms to place your reservation.'; err.hidden=false; return; }
+  const cf=conflicts(DB.cart,DB.period.start,DB.period.end);
+  if(cf.length){ toast('Someone just booked some of these units. Please review your cart.',true); go('cart'); return; }
+  let code; do{ code='RH-'+(24830+Math.floor(Math.random()*9000)); }while(DB.reservations.some(r=>r.code===code));
+  DB.reservations.unshift({code,userId:DB.session,lines:DB.cart.map(l=>({itemId:l.itemId,qty:l.qty,price:item(l.itemId).price,note:l.note||''})),start:DB.period.start,end:DB.period.end,status:'pending',slot:c.slot,pay:c.pay,created:TODAY,notes:c.notes});
+  const u=me(); u.phone=c.phone;
+  DB.cart=[]; UI.checkout=null; UI.lastCode=code; save(); go('confirm');
+}
+function pageConfirm(){
+  const r=DB.reservations.find(x=>x.code===UI.lastCode); if(!r) return pageHome();
+  return `<div class="wrap" style="padding-block:40px 64px;max-width:760px"><div class="panel"><div class="confirm-hero">
+    <span class="check-ring">${I.check}</span><h1 style="font-size:32px">Reservation received</h1>
+    <p class="muted">Your units are on hold. We'll confirm by SMS within the hour during shop hours.</p>
+    <div class="code-big">${r.code}</div><p class="muted" style="font-size:13px">Show this code at the counter</p></div>
+    <div class="panel-b" style="border-top:1px solid var(--line)"><div class="kv">
+      <div><small>Pickup</small><b>${fmt(r.start)} · ${r.slot}</b></div><div><small>Return by</small><b>${fmt(r.end)} · 6:00 PM</b></div>
+      <div><small>Rental total</small><b>${peso(resTotal(r))}</b></div><div><small>Deposit at pickup</small><b>${peso(resDeposit(r))}</b></div></div>
+      <div class="notice gold" style="margin-top:14px">${I.id}<span>Bring a valid government ID under <b>${esc(user(r.userId).name)}</b>. Pickup is at our General Santos City shop only.</span></div>
+      <div class="row" style="justify-content:center;margin-top:18px"><button class="btn btn-primary" data-go="account">Track my reservations</button><button class="btn btn-ghost" data-go="catalog">Keep browsing</button></div>
+    </div></div></div>`;
+}
+function pageAuth(){
+  const reg=UI.authMode==='register';
+  return `<div class="wrap"><div class="auth">
+    <div class="auth-side"><img src="${LOGO}" alt=""><h2>${reg?'Create your RentHub account':'Welcome back'}</h2><p>Track reservations, see pickup times, and rebook your favorite gear in a few taps.</p>
+      <ul class="policy-list"><li>${I.cal}<span>Live availability for your exact dates</span></li><li>${I.shield}<span>Units are held the moment you reserve</span></li><li>${I.store}<span>Pick up in person at our GenSan shop</span></li></ul></div>
+    <form class="auth-form" id="authForm" novalidate>
+      <div class="tabs"><button type="button" data-auth="login" class="${!reg?'on':''}">Log in</button><button type="button" data-auth="register" class="${reg?'on':''}">Sign up</button></div>
+      <h2 style="font-size:26px">${reg?'Sign up':'Log in to RentHub'}</h2>
+      ${reg?`<div class="field"><label for="a-name">Full name (as shown on your ID)</label><input class="input" id="a-name" autocomplete="name" required></div><div class="field"><label for="a-phone">Mobile number</label><input class="input" id="a-phone" placeholder="09XX XXX XXXX" autocomplete="tel" required></div>`:''}
+      <div class="field"><label for="a-email">Email</label><input class="input" id="a-email" type="email" autocomplete="email" required></div>
+      <div class="field"><label for="a-pass">Password</label><input class="input" id="a-pass" type="password" autocomplete="${reg?'new-password':'current-password'}" required></div>
+      ${reg?`<div class="field"><label for="a-pass2">Confirm password</label><input class="input" id="a-pass2" type="password" autocomplete="new-password" required></div>`:''}
+      <p class="err" id="aErr" hidden></p>
+      <button class="btn btn-primary" type="submit">${reg?'Create account':'Log in'}</button>
+      ${!reg?`<div class="demo-acc"><b>Preview accounts</b><button type="button" class="link-btn" data-demo="juan@example.com|demo123">Customer · juan@example.com / demo123</button><button type="button" class="link-btn" data-demo="admin@renthubgensan.ph|admin123">Admin · admin@renthubgensan.ph / admin123</button></div>`:''}
+    </form></div></div>`;
+}
+function doAuth(){
+  const reg=UI.authMode==='register'; const e=$('#a-email').value.trim().toLowerCase(); const p=$('#a-pass').value; const err=$('#aErr');
+  const fail=m=>{err.textContent=m;err.hidden=false};
+  if(!/^\S+@\S+\.\S+$/.test(e)) return fail('Enter a valid email address.');
+  if(reg){
+    const n=$('#a-name').value.trim(), ph=$('#a-phone').value.trim();
+    if(n.length<3) return fail('Enter your full name as it appears on your ID.');
+    if(!/^[0-9 +()-]{7,}$/.test(ph)) return fail('Enter a valid mobile number.');
+    if(p.length<6) return fail('Use at least 6 characters for your password.');
+    if(p!==$('#a-pass2').value) return fail('The passwords don\'t match.');
+    if(DB.users.some(u=>u.email===e)) return fail('An account with this email already exists. Log in instead.');
+    const u={id:'u'+Date.now(),name:n,email:e,pass:p,phone:ph,role:'customer',joined:TODAY}; DB.users.push(u); DB.session=u.id; save(); toast('Account created. Welcome to RentHub!');
+  } else {
+    const u=DB.users.find(x=>x.email===e&&x.pass===p); if(!u) return fail('That email and password don\'t match an account.');
+    DB.session=u.id; save(); toast(`Logged in as ${u.name}`);
+  }
+  const u=me(); const next=UI.authNext; UI.authNext=null;
+  go(u.role==='admin'?'admin':(next||'account'));
+}
+function resCard(r, admin){
+  const steps=[['pending','Reserved'],['confirmed','Confirmed'],['picked_up','Picked up'],['returned','Returned']];
+  const idx=steps.findIndex(s=>s[0]===r.status);
+  const canCancel=['pending','confirmed'].includes(r.status) && r.start>TODAY;
+  return `<article class="res-card">
+    <div class="res-top"><div class="row"><span class="code">${r.code}</span>${statusPill(r.status)}</div>
+      <div class="res-dates num"><span><b>Pickup</b>${fmt(r.start)} · ${r.slot}</span><span><b>Return</b>${fmt(r.end)}</span><span><b>Total</b>${peso(resTotal(r))}</span></div></div>
+    <div class="res-items">${r.lines.map(l=>{const it=item(l.itemId)||{name:'Removed item',cat:'events',id:''};return `<span class="res-item">${art(it.id,it.cat)}${l.qty} × ${esc(it.name)}</span>`}).join('')}</div>
+    ${r.status!=='cancelled'?`<div class="timeline">${steps.map((s,i)=>`<div class="tl ${i<idx||(i===idx&&r.status==='returned')?'done':i===idx?'cur':''}"><i></i>${s[1]}</div>`).join('')}</div>`:''}
+    ${canCancel?`<div class="res-actions"><span class="muted" style="font-size:13px;margin-right:auto">Free cancellation until the day before pickup</span><button class="btn btn-danger btn-sm" data-cancel="${r.code}">Cancel reservation</button></div>`:''}
+  </article>`;
+}
+function pageAccount(){
+  const u=me(); const mine=DB.reservations.filter(r=>r.userId===u.id);
+  const upcoming=mine.filter(r=>['pending','confirmed'].includes(r.status)), active=mine.filter(r=>r.status==='picked_up'), past=mine.filter(r=>['returned','cancelled'].includes(r.status));
+  const spent=mine.filter(r=>r.status!=='cancelled').reduce((a,r)=>a+resTotal(r),0);
+  const tab=UI.acctTab;
+  return `<div class="dash-head"><div class="wrap"><div><div class="eyebrow">Customer dashboard</div><h1 style="font-size:32px;margin-top:6px">Hi, ${esc(u.name.split(' ')[0])}</h1><p class="muted">Track pickups, returns and past rentals.</p></div><div class="row"><button class="btn btn-primary" data-go="catalog">${I.plus} New reservation</button><button class="btn btn-ghost" id="logout">${I.logout} Log out</button></div></div></div>
+  <div class="wrap" style="padding-block:24px 64px;display:grid;gap:20px">
+    <div class="stats">
+      <div class="stat"><small>Upcoming pickups</small><b>${upcoming.length}</b><span>${upcoming[0]?'Next: '+fmtShort(upcoming.sort((a,b)=>a.start<b.start?-1:1)[0].start):'Nothing scheduled'}</span></div>
+      <div class="stat"><small>Currently rented</small><b>${active.length}</b><span>${active[0]?'Return by '+fmtShort(active[0].end):'No gear out'}</span></div>
+      <div class="stat"><small>Completed</small><b>${past.filter(r=>r.status==='returned').length}</b><span>Returned rentals</span></div>
+      <div class="stat"><small>Total rented</small><b class="num">${peso(spent)}</b><span>Since ${fmtShort(u.joined)}</span></div>
+    </div>
+    <div class="tabs"><button data-acct="reservations" class="${tab==='reservations'?'on':''}">Reservations</button><button data-acct="history" class="${tab==='history'?'on':''}">History</button><button data-acct="profile" class="${tab==='profile'?'on':''}">Profile</button></div>
+    ${tab==='reservations'?(upcoming.length+active.length?`<div class="stack">${[...active,...upcoming].map(r=>resCard(r)).join('')}</div>`:`<div class="panel empty">${I.cal}<h3>No upcoming reservations</h3><button class="btn btn-primary" data-go="catalog">Browse equipment</button></div>`):''}
+    ${tab==='history'?(past.length?`<div class="stack">${past.map(r=>resCard(r)).join('')}</div>`:`<div class="panel empty"><h3>No past rentals yet</h3></div>`):''}
+    ${tab==='profile'?`<form class="panel" id="profForm" style="max-width:620px"><div class="panel-h"><h3>Profile</h3></div><div class="panel-b stack">
+      <div class="field"><label for="p-name">Full name (must match your ID)</label><input class="input" id="p-name" value="${esc(u.name)}"></div>
+      <div class="two"><div class="field"><label for="p-email">Email</label><input class="input" id="p-email" value="${esc(u.email)}" readonly></div><div class="field"><label for="p-phone">Mobile number</label><input class="input" id="p-phone" value="${esc(u.phone)}"></div></div>
+      <button class="btn btn-primary" type="submit" style="justify-self:start">Save changes</button></div></form>`:''}
+  </div>`;
+}
+
+/* ---------- admin ---------- */
+function pageAdmin(){
+  const pend=DB.reservations.filter(r=>r.status==='pending').length;
+  const tabs=[['overview','Overview',I.grid],['reservations','Reservations',I.list],['equipment','Equipment & inventory',I.box],['availability','Availability calendar',I.cal],['customers','Customers',I.users]];
+  const body={overview:adminOverview,reservations:adminReservations,equipment:adminEquipment,availability:adminAvailability,customers:adminCustomers}[UI.adminTab]();
+  return `<div class="admin"><nav class="side"><h5>Store console</h5>${tabs.map(([k,l,ic])=>`<button data-atab="${k}" class="${UI.adminTab===k?'on':''}">${ic}${l}${k==='reservations'&&pend?`<span class="count">${pend}</span>`:''}</button>`).join('')}
+    <div class="spacer" style="flex:1"></div><button data-go="home">${I.store}View storefront</button><button id="logout">${I.logout}Log out</button></nav>
+  <div class="admin-main">${body}</div></div>`;
+}
+function adminOverview(){
+  const month=TODAY.slice(0,7);
+  const live=DB.reservations.filter(r=>r.status!=='cancelled');
+  const rev=live.filter(r=>r.created.slice(0,7)===month||r.start.slice(0,7)===month).reduce((a,r)=>a+resTotal(r),0);
+  const pickups=DB.reservations.filter(r=>r.start===TODAY&&['pending','confirmed'].includes(r.status));
+  const returns=DB.reservations.filter(r=>r.end===TODAY&&r.status==='picked_up');
+  const unitsOut=DB.reservations.filter(r=>r.status==='picked_up').reduce((a,r)=>a+r.lines.reduce((b,l)=>b+l.qty,0),0);
+  const pend=DB.reservations.filter(r=>r.status==='pending');
+  const tight=DB.items.map(it=>{let min=it.stock,day=null;for(let i=0;i<14;i++){const d=addDays(TODAY,i);const a=it.status==='active'?it.stock-bookedOn(it.id,d):0;if(a<min){min=a;day=d}}return {it,min,day}}).filter(x=>x.it.status==='active'&&x.min<=Math.ceil(x.it.stock*.2)).sort((a,b)=>a.min-b.min);
+  const util=DB.items.map(it=>({it,u:it.stock?bookedOn(it.id,TODAY)/it.stock:0})).sort((a,b)=>b.u-a.u).slice(0,6);
+  return `<div class="row" style="justify-content:space-between"><div><div class="eyebrow">${new Date().toLocaleDateString('en-PH',{weekday:'long',month:'long',day:'numeric'})}</div><h1 style="margin-top:4px">Store overview</h1></div><button class="btn btn-primary" data-atab="reservations">Review ${pend.length} pending</button></div>
+  <div class="stats">
+    <div class="stat"><small>Pending approval</small><b>${pend.length}</b><span>Need confirmation</span></div>
+    <div class="stat"><small>Units out today</small><b>${unitsOut}</b><span>Across ${DB.reservations.filter(r=>r.status==='picked_up').length} reservations</span></div>
+    <div class="stat"><small>Revenue this month</small><b class="num">${peso(rev)}</b><span>Booked rentals, excl. deposits</span></div>
+    <div class="stat"><small>Customers</small><b>${DB.users.filter(u=>u.role==='customer').length}</b><span>Registered accounts</span></div>
+  </div>
+  <div class="grid-2">
+    <div class="panel"><div class="panel-h"><h3>Today's pickups</h3><span class="muted">${pickups.length}</span></div>${pickups.length?pickups.map(r=>`<div class="list-row"><div><b class="mono">${r.code}</b> · ${esc(user(r.userId).name)}<div class="muted" style="font-size:13px">${r.slot} · ${r.lines.map(l=>l.qty+'× '+esc(item(l.itemId).name)).join(', ')}</div></div>${r.status==='confirmed'?`<button class="btn btn-gold btn-sm" data-st="${r.code}|picked_up">Release gear</button>`:`<button class="btn btn-primary btn-sm" data-st="${r.code}|confirmed">Confirm</button>`}</div>`).join(''):'<div class="list-row muted">No pickups scheduled today.</div>'}</div>
+    <div class="panel"><div class="panel-h"><h3>Due back today</h3><span class="muted">${returns.length}</span></div>${returns.length?returns.map(r=>`<div class="list-row"><div><b class="mono">${r.code}</b> · ${esc(user(r.userId).name)}<div class="muted" style="font-size:13px">${r.lines.map(l=>l.qty+'× '+esc(item(l.itemId).name)).join(', ')}</div></div><button class="btn btn-ghost btn-sm" data-st="${r.code}|returned">Check in</button></div>`).join(''):'<div class="list-row muted">Nothing due back today.</div>'}</div>
+    <div class="panel"><div class="panel-h"><h3>Low availability, next 14 days</h3></div>${tight.length?tight.map(x=>`<div class="list-row"><span><b>${esc(x.it.name)}</b><div class="muted" style="font-size:13px">Tightest on ${fmt(x.day)}</div></span>${x.min===0?'<span class="pill bad">Fully booked</span>':`<span class="pill warn">${x.min} of ${x.it.stock} free</span>`}</div>`).join(''):'<div class="list-row muted">All items have healthy availability.</div>'}</div>
+    <div class="panel"><div class="panel-h"><h3>Utilization today</h3></div><div class="panel-b stack">${util.map(x=>`<div class="row" style="justify-content:space-between;flex-wrap:nowrap"><span style="min-width:0;flex:1">${esc(x.it.name)}</span><div class="bar" style="flex:1"><i style="width:${Math.round(x.u*100)}%"></i></div><span class="num muted" style="width:44px;text-align:right">${Math.round(x.u*100)}%</span></div>`).join('')}</div></div>
+  </div>`;
+}
+function adminReservations(){
+  const f=UI.resFilter, q=UI.resQ.toLowerCase();
+  let list=DB.reservations.filter(r=>(f==='all'||r.status===f) && (!q || (r.code+' '+user(r.userId).name).toLowerCase().includes(q)));
+  list=[...list].sort((a,b)=>a.start<b.start?1:-1);
+  const counts=s=>DB.reservations.filter(r=>s==='all'||r.status===s).length;
+  return `<div><div class="eyebrow">Bookings</div><h1 style="margin-top:4px">Reservations</h1></div>
+  <div class="toolbar"><div class="chips">${['all','pending','confirmed','picked_up','returned','cancelled'].map(s=>`<button class="chip ${f===s?'on':''}" data-rf="${s}">${s==='all'?'All':STATUS[s][0]} <span class="num">(${counts(s)})</span></button>`).join('')}</div>
+    <input class="input" id="resQ" placeholder="Search code or customer" value="${esc(UI.resQ)}" style="max-width:260px"></div>
+  <div class="panel tbl-wrap"><table><thead><tr><th>Code</th><th>Customer</th><th>Items</th><th>Pickup → Return</th><th class="num">Total</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+  ${list.map(r=>{const u=user(r.userId);const next={pending:[['confirmed','Confirm','btn-primary']],confirmed:[['picked_up','Release','btn-gold']],picked_up:[['returned','Check in','btn-ghost']],returned:[],cancelled:[['pending','Restore','btn-ghost']]}[r.status];
+    return `<tr><td class="mono" style="font-weight:600">${r.code}</td><td><b>${esc(u.name)}</b><div class="muted" style="font-size:12.5px">${esc(u.phone)}</div></td><td style="min-width:200px">${r.lines.map(l=>`${l.qty}× ${esc(item(l.itemId)?.name||'—')}`).join('<br>')}</td><td class="num" style="white-space:nowrap">${fmtShort(r.start)} → ${fmtShort(r.end)}<div class="muted" style="font-size:12.5px">${r.slot} · ${r.pay==='gcash'?'GCash 20%':'Pay at shop'}</div></td><td class="num">${peso(resTotal(r))}</td><td>${statusPill(r.status)}</td>
+    <td><div class="row" style="flex-wrap:nowrap">${next.map(([s,l,c])=>`<button class="btn ${c} btn-sm" data-st="${r.code}|${s}">${l}</button>`).join('')}${['pending','confirmed'].includes(r.status)?`<button class="btn btn-danger btn-sm" data-st="${r.code}|cancelled">Cancel</button>`:''}</div></td></tr>`}).join('')||'<tr><td colspan="7" class="muted" style="text-align:center;padding:32px">No reservations match.</td></tr>'}
+  </tbody></table></div>`;
+}
+function setStatus(code, s){
+  const r=DB.reservations.find(x=>x.code===code); if(!r) return;
+  if(s==='pending' && r.status==='cancelled'){
+    const cf=conflicts(r.lines,r.start,r.end,r.code);
+    if(cf.length){ toast(`Can't restore ${code}: ${cf.map(c=>`${item(c.id).name} has only ${c.have} free`).join(', ')}. Double booking blocked.`,true); return; }
+  }
+  const apply=()=>{ r.status=s; save(); render(); toast(`${code} marked ${STATUS[s][0].toLowerCase()}`); };
+  if(s==='cancelled') confirmBox(`Cancel ${code}?`,'The held units will be released and become bookable by other customers.','Cancel reservation',apply,true); else apply();
+}
+function adminEquipment(){
+  return `<div class="row" style="justify-content:space-between"><div><div class="eyebrow">Catalog</div><h1 style="margin-top:4px">Equipment & inventory</h1></div><button class="btn btn-primary" id="addItem">${I.plus} Add equipment</button></div>
+  <div class="panel tbl-wrap"><table><thead><tr><th>Item</th><th>Category</th><th class="num">Rate / day</th><th class="num">Deposit</th><th class="num">Stock</th><th class="num">Booked today</th><th>Status</th><th></th></tr></thead><tbody>
+  ${DB.items.map(it=>`<tr><td><div class="cell-item">${art(it.id,it.cat)}<b>${esc(it.name)}</b></div></td><td>${catName(it.cat)}</td><td class="num">${peso(it.price)}</td><td class="num">${peso(it.deposit)}</td><td class="num">${it.stock}</td><td class="num">${bookedOn(it.id,TODAY)}</td><td>${it.status==='active'?'<span class="pill ok">Rentable</span>':'<span class="pill neutral">Maintenance</span>'}</td><td><button class="btn btn-ghost btn-sm" data-edit="${it.id}">Edit</button></td></tr>`).join('')}
+  </tbody></table></div>`;
+}
+function editItem(id){
+  const it=id?item(id):{id:'',name:'',cat:'events',price:100,deposit:300,stock:5,unit:'unit',desc:'',status:'active',includes:[]};
+  const maxBooked=id?Math.max(0,...Array.from({length:60},(_,i)=>bookedOn(id,addDays(TODAY,i)))):0;
+  openModal(`<form id="itemForm" class="panel-b stack" style="padding:28px"><h3 style="font-size:22px;padding-right:40px">${id?'Edit '+esc(it.name):'Add equipment'}</h3>
+    <div class="field"><label for="e-name">Name</label><input class="input" id="e-name" value="${esc(it.name)}" required></div>
+    <div class="two"><div class="field"><label for="e-cat">Category</label><select class="input" id="e-cat">${CATS.map(c=>`<option value="${c.id}" ${it.cat===c.id?'selected':''}>${c.name}</option>`).join('')}</select></div><div class="field"><label for="e-unit">Unit label</label><input class="input" id="e-unit" value="${esc(it.unit)}"></div></div>
+    <div class="two"><div class="field"><label for="e-price">Rate per day (₱)</label><input class="input" id="e-price" type="number" min="0" value="${it.price}"></div><div class="field"><label for="e-dep">Deposit (₱)</label><input class="input" id="e-dep" type="number" min="0" value="${it.deposit}"></div></div>
+    <div class="two"><div class="field"><label for="e-stock">Units in inventory</label><input class="input" id="e-stock" type="number" min="0" value="${it.stock}"></div><div class="field"><label for="e-status">Status</label><select class="input" id="e-status"><option value="active" ${it.status==='active'?'selected':''}>Rentable</option><option value="maintenance" ${it.status!=='active'?'selected':''}>Under maintenance</option></select></div></div>
+    ${id?`<p class="muted" style="font-size:13px">Peak booked in the next 60 days: <b class="num">${maxBooked}</b> units. Stock can't go below this.</p>`:''}
+    <div class="field"><label for="e-desc">Description</label><textarea class="input" id="e-desc" rows="3">${esc(it.desc)}</textarea></div>
+    <p class="err" id="eErr" hidden></p>
+    <div class="row" style="justify-content:flex-end"><button type="button" class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" type="submit">${id?'Save changes':'Add equipment'}</button></div></form>`,'sm');
+  $('#itemForm').onsubmit=e=>{ e.preventDefault();
+    const v={name:$('#e-name').value.trim(),cat:$('#e-cat').value,unit:$('#e-unit').value.trim()||'unit',price:+$('#e-price').value,deposit:+$('#e-dep').value,stock:Math.floor(+$('#e-stock').value),status:$('#e-status').value,desc:$('#e-desc').value.trim()};
+    const err=$('#eErr'); if(!v.name){err.textContent='Give the equipment a name.';err.hidden=false;return;}
+    if(id && v.stock<maxBooked){err.textContent=`${maxBooked} units are already reserved on an upcoming date. Set stock to at least ${maxBooked}, or cancel reservations first.`;err.hidden=false;return;}
+    if(id) Object.assign(item(id),v); else DB.items.push({...v,id:'x'+Date.now(),includes:[]});
+    save(); closeModal(); render(); toast(id?'Equipment updated':'Equipment added');
+  };
+}
+function adminAvailability(){
+  const days=Array.from({length:14},(_,i)=>addDays(TODAY,i));
+  return `<div><div class="eyebrow">Next 14 days</div><h1 style="margin-top:4px">Availability calendar</h1><p class="muted" style="margin-top:6px">Free units per day. Pending, confirmed and picked-up reservations all hold stock, so the same unit can never be booked twice.</p></div>
+  <div class="legend"><span><i style="background:var(--ok-bg)"></i>Plenty free</span><span><i style="background:var(--warn-bg)"></i>20% or less free</span><span><i style="background:var(--bad-bg)"></i>Fully booked</span><span><i style="background:var(--surface-2)"></i>Maintenance</span></div>
+  <div class="panel tbl-wrap" style="padding:12px"><table class="cal"><thead><tr><th></th>${days.map(d=>`<th class="${d===TODAY?'today':''}">${fmtDow(d)}<br>${parse(d).getDate()}</th>`).join('')}</tr></thead><tbody>
+  ${DB.items.map(it=>`<tr><td class="nm">${esc(it.name)} <span class="muted num">/${it.stock}</span></td>${days.map(d=>{if(it.status!=='active')return `<td><div class="c mt">–</div></td>`;const a=it.stock-bookedOn(it.id,d);const l=a<=0?2:a<=Math.ceil(it.stock*.2)?1:0;return `<td><div class="c l${l}" title="${esc(it.name)} on ${fmt(d)}: ${a} of ${it.stock} free">${a}</div></td>`}).join('')}</tr>`).join('')}
+  </tbody></table></div>`;
+}
+function adminCustomers(){
+  const cs=DB.users.filter(u=>u.role==='customer');
+  return `<div><div class="eyebrow">Accounts</div><h1 style="margin-top:4px">Customers</h1></div>
+  <div class="panel tbl-wrap"><table><thead><tr><th>Customer</th><th>Mobile</th><th>Joined</th><th class="num">Reservations</th><th class="num">Active</th><th class="num">Lifetime rentals</th></tr></thead><tbody>
+  ${cs.map(u=>{const rs=DB.reservations.filter(r=>r.userId===u.id);return `<tr><td><div class="row" style="flex-wrap:nowrap"><span class="avatar">${esc(initials(u.name))}</span><span><b>${esc(u.name)}</b><div class="muted" style="font-size:12.5px">${esc(u.email)}</div></span></div></td><td class="num">${esc(u.phone)}</td><td class="num">${fmt(u.joined)}</td><td class="num">${rs.length}</td><td class="num">${rs.filter(r=>HOLD.includes(r.status)).length}</td><td class="num">${peso(rs.filter(r=>r.status!=='cancelled').reduce((a,r)=>a+resTotal(r),0))}</td></tr>`}).join('')}
+  </tbody></table></div>`;
+}
+
+/* ---------- render ---------- */
+function footer(){
+  return `<footer class="foot"><div class="wrap">
+    <div style="display:grid;gap:12px;align-content:start"><div class="brand"><img src="${LOGO}" alt=""><span><b>Rent<span>Hub</span></b><small>GENSAN</small></span></div><p class="muted" style="font-size:14px;max-width:36ch">Rent what you need, the smarter choice indeed. Event, entertainment, photography, camping and beach gear in General Santos City.</p></div>
+    <div><h4>Equipment</h4><ul>${CATS.map(c=>`<li><button data-cat-go="${c.id}">${c.name}</button></li>`).join('')}</ul></div>
+    <div><h4>Renting</h4><ul><li><button data-go="how">How it works</button></li><li><button data-go="how">Pickup policy</button></li><li><button data-go="cart">Your cart</button></li><li><button data-go="account">My reservations</button></li></ul></div>
+    <div><h4>Visit us</h4><ul><li>Pioneer Avenue, Dadiangas West</li><li>General Santos City 9500</li><li>Mon–Sat 8 AM – 6 PM</li><li>Sun 9 AM – 3 PM</li></ul></div>
+  </div><div class="foot-bottom"><div class="wrap"><span>© 2026 RentHub GenSan. All rights reserved.</span><span>Pickup only · No delivery or shipping</span></div></div></footer>`;
+}
+function render(){
+  const u=me();
+  if(['account','checkout'].includes(UI.view) && !u){ UI.authNext=UI.view; UI.view='auth'; }
+  if(UI.view==='admin' && (!u||u.role!=='admin')){ UI.authNext=null; UI.view='auth'; }
+  if(UI.view==='account' && u && u.role==='admin') UI.view='admin';
+  if(UI.view==='checkout' && !DB.cart.length) UI.view='cart';
+  renderHeader();
+  const pages={home:pageHome,catalog:pageCatalog,cart:pageCart,checkout:pageCheckout,confirm:pageConfirm,auth:pageAuth,account:pageAccount,admin:pageAdmin,
+    how:()=>`<div class="page-head"><div class="wrap"><div class="crumbs">Home / How it works</div><h1>How renting works</h1></div></div><section class="section"><div class="wrap">${stepsHtml()}</div></section>${pickupBand()}`};
+  $('#app').innerHTML=(pages[UI.view]||pageHome)() + (UI.view==='admin'?'':footer());
+  bind();
+}
+function bind(){
+  const hs=$('#heroSearch'); if(hs) hs.onsubmit=e=>{e.preventDefault(); setPeriod($('#hs-start').value,$('#hs-end').value,true); go('catalog',{cat:$('#hs-cat').value});};
+  const q=$('#q'); if(q) q.oninput=()=>{ UI.q=q.value; const pos=q.selectionStart; render(); const n=$('#q'); n.focus(); n.setSelectionRange(pos,pos); };
+  const s=$('#sort'); if(s) s.onchange=()=>{UI.sort=s.value;render();};
+  const cq=$('#clearQ'); if(cq) cq.onclick=()=>{UI.q='';render();};
+  const tc=$('#toCheckout'); if(tc) tc.onclick=()=>{ if(!me()){UI.authNext='checkout';go('auth');} else go('checkout'); };
+  document.querySelectorAll('[data-cqi]').forEach(inp=>inp.onchange=()=>{ const l=DB.cart[+inp.dataset.cqi]; l.qty=Math.max(1,Math.floor(+inp.value||1)); save(); render(); });
+  const co=$('#coForm'); if(co){ co.onsubmit=e=>{e.preventDefault();placeOrder();}; co.querySelectorAll('input[name=pay]').forEach(r=>r.onchange=()=>UI.checkout.pay=r.value); }
+  const af=$('#authForm'); if(af) af.onsubmit=e=>{e.preventDefault();doAuth();};
+  const pf=$('#profForm'); if(pf) pf.onsubmit=e=>{e.preventDefault(); const u=me(); u.name=$('#p-name').value.trim()||u.name; u.phone=$('#p-phone').value.trim()||u.phone; save(); render(); toast('Profile saved');};
+  const rq=$('#resQ'); if(rq) rq.oninput=()=>{UI.resQ=rq.value; const p=rq.selectionStart; render(); const n=$('#resQ'); n.focus(); n.setSelectionRange(p,p);};
+  const ai=$('#addItem'); if(ai) ai.onclick=()=>editItem(null);
+}
+function setPeriod(start,end,quiet){
+  if(!start) start=DB.period.start; if(!end) end=DB.period.end;
+  if(start<TODAY){ start=TODAY; if(!quiet) toast('Pickup date can\'t be in the past.',true); }
+  if(end<start){ end=addDays(start,1); if(!quiet) toast('Return date moved to the day after pickup.'); }
+  if(daysBetween(start,end)>30){ end=addDays(start,30); toast('Online reservations are limited to 30 days. Call us for longer rentals.'); }
+  DB.period={start,end}; save();
+}
+
+/* global delegated clicks */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('button,[data-close],.overlay'); if(!t) return;
+  if(t.matches('.overlay') && e.target!==t) return;
+  if(t.hasAttribute('data-close') && (t.matches('.overlay')? e.target===t : true)){ closeModal(); return; }
+  const d=t.dataset;
+  if(t.id==='menuBtn'){ UI.menu=!UI.menu; renderHeader(); return; }
+  if(d.go){ if(d.go==='how'&&UI.view==='home'){ UI.menu=false; renderHeader(); $('#how').scrollIntoView({behavior:'smooth'}); return;} go(d.go); return; }
+  if(d.catGo){ go('catalog',{cat:d.catGo,q:''}); return; }
+  if(d.catSet){ UI.cat=d.catSet; render(); return; }
+  if(d.item){ itemModal(d.item); return; }
+  if(d.cq!==undefined){ const l=DB.cart[+d.cq]; l.qty=Math.max(1,l.qty+(+d.d)); save(); render(); return; }
+  if(d.rm!==undefined){ const l=DB.cart.splice(+d.rm,1)[0]; save(); render(); toast(`Removed ${item(l.itemId).name}`); return; }
+  if(d.slot){ UI.checkout.slot=d.slot; document.querySelectorAll('.slot').forEach(s=>s.classList.toggle('on',s===t)); return; }
+  if(d.auth){ UI.authMode=d.auth; render(); return; }
+  if(d.demo){ const [em,pw]=d.demo.split('|'); $('#a-email').value=em; $('#a-pass').value=pw; return; }
+  if(t.id==='logout'){ DB.session=null; save(); go('home'); toast('Logged out'); return; }
+  if(d.acct){ UI.acctTab=d.acct; render(); return; }
+  if(d.cancel){ confirmBox(`Cancel ${d.cancel}?`,'Your held units will be released for other renters. GCash down payments are refunded within 3 business days.','Cancel reservation',()=>{ DB.reservations.find(r=>r.code===d.cancel).status='cancelled'; save(); render(); toast('Reservation cancelled'); },true); return; }
+  if(d.atab){ UI.adminTab=d.atab; render(); return; }
+  if(d.rf){ UI.resFilter=d.rf; render(); return; }
+  if(d.st){ const [c,s]=d.st.split('|'); setStatus(c,s); return; }
+  if(d.edit){ editItem(d.edit); return; }
+});
+document.addEventListener('change',e=>{
+  const p=e.target.dataset?.period; if(!p) return;
+  const inModal=e.target.closest('.modal'); const openId=inModal && document.querySelector('.modal [data-q]') ? document.querySelector('#modalRoot .art')?.closest('.pd') && currentModalItem : null;
+  setPeriod(p==='start'?e.target.value:null, p==='end'?e.target.value:null);
+  if(p==='start' && DB.period.end<=DB.period.start){}
+  render();
+  if(inModal && currentModalItem) itemModal(currentModalItem);
+});
+let currentModalItem=null;
+const _itemModal=itemModal; itemModal=id=>{ currentModalItem=id; _itemModal(id); };
+const _closeModal=closeModal; closeModal=()=>{ currentModalItem=null; _closeModal(); };
+document.addEventListener('keydown',e=>{ if(e.key==='Escape' && $('#modalRoot').innerHTML) closeModal(); });
+
+const h=location.hash.slice(1); if(['catalog','cart','admin','account','auth','how'].includes(h)) UI.view=h;
+render();
+</script>
+<div class="preview-flag">Interactive preview · sample data</div>
+
+</body>
+</html>
