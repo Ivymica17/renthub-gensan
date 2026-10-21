@@ -541,7 +541,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 /* Pickup band */
 .pickup-band{background:radial-gradient(600px 300px at 90% 0%,rgba(240,197,90,.14),transparent 60%),#071A33}
 .pickup-band h2{font-size:clamp(30px,3.6vw,44px);letter-spacing:-.02em}
-.shop-card{background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border-color:rgba(240,197,90,.25);border-radius:22px;padding:28px}
+.shop-card{background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border-color:rgba(240,197,90,.25);border-radius:22px;padding:28px;align-self:center}
 
 /* CTA */
 .cta{border-radius:26px;padding:48px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;background:radial-gradient(500px 260px at 100% 0%,rgba(255,255,255,.35),transparent 60%),var(--gold-grad);color:#1A1405;box-shadow:0 30px 60px rgba(201,149,32,.25)}
@@ -1008,16 +1008,18 @@ function stepsHtml(){
 }
 function pickupBand(){
   return `<section class="pickup-band"><div class="wrap">
-    <div><div class="eyebrow">Pickup policy</div><h2 style="margin-top:8px">All reservations are collected at our physical shop</h2>
+    <div><div class="eyebrow">Pickup &amp; rental policies</div><h2 style="margin-top:8px">Shop pickup only</h2>
       <ul class="policy-list">
-        <li>${I.id}<span><b style="color:#fff">Valid government ID required.</b> The ID holder must match the account name on the reservation.</span></li>
-        <li>${I.shield}<span><b style="color:#fff">Refundable security deposit</b> is paid at pickup and returned after the gear is checked in good condition.</span></li>
-        <li>${I.box}<span><b style="color:#fff">Inspect before you leave.</b> We test every unit with you at the counter and note its condition.</span></li>
-        <li>${I.store}<span><b style="color:#fff">No delivery or shipping.</b> This keeps high-value equipment secure and accounted for.</span></li>
+        <li>${I.store}<span><b style="color:#fff">Shop pickup only:</b> All reservations must be collected at our physical shop. No delivery or shipping is available.</span></li>
+        <li>${I.id}<span><b style="color:#fff">Valid government-issued ID:</b> Customers must present a valid ID and sign a rental agreement before equipment release. The ID holder must match the reservation account name.</span></li>
+        <li>${I.shield}<span><b style="color:#fff">Refundable security deposit:</b> A deposit equal to 50% of the rental fee is required for individual equipment and packages. It will be refunded after inspection, minus any applicable deductions.</span></li>
+        <li>${I.cal}<span><b style="color:#fff">Late-return charges:</b> Delays up to 1 hour incur a 5% penalty. Delays exceeding 1 hour up to 2 hours incur a total 10% penalty. Delays exceeding 2 hours incur one full additional day's rental fee, with another daily charge for each succeeding 24-hour period.</span></li>
+        <li>${I.box}<span><b style="color:#fff">Damage or loss:</b> Customers are responsible for documented repair or replacement costs that exceed their security deposit.</span></li>
+        <li>${I.box}<span><b style="color:#fff">Equipment inspection:</b> Customers must inspect the equipment with staff at pickup and return it in good condition.</span></li>
       </ul></div>
     <div class="shop-card"><h3>RentHub GenSan Pickup Counter</h3>
       <p>Pioneer Avenue, Dadiangas West<br>General Santos City, South Cotabato 9500</p>
-      <dl class="hours"><dt>Mon – Sat</dt><dd>8:00 AM – 6:00 PM</dd><dt>Sunday</dt><dd>9:00 AM – 3:00 PM</dd><dt>Phone</dt><dd>(083) 552 0000</dd><dt>Email</dt><dd>hello@renthubgensan.ph</dd></dl>
+      <dl class="hours"><dt>Mon – Sat</dt><dd>8:00 AM – 6:00 PM</dd><dt>Sunday</dt><dd>9:00 AM – 3:00 PM</dd><dt>Phone</dt><dd>09920372031</dd><dt>Email</dt><dd>hello@renthubgensan.ph</dd></dl>
       <p style="font-size:12.5px;color:#9FB2CF">Address and contact details are placeholders for this preview.</p>
     </div>
   </div></section>`;
