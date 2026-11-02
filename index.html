@@ -141,15 +141,9 @@ select option{color:var(--ink);background:var(--surface)}
 .package-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .package-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px}
 .package-card h3{font-size:19px}
-.package-price{font-family:var(--f-display);font-size:28px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}
-.package-price small{font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--muted)}
-.package-deposit{display:flex;justify-content:space-between;gap:10px;padding-top:10px;border-top:1px solid var(--line);font-size:13.5px}
-.package-deposit b{font-variant-numeric:tabular-nums}
 .package-includes{list-style:none;padding:0;margin:0;display:grid;gap:7px;font-size:13.5px;color:var(--muted)}
 .package-includes li{display:flex;justify-content:space-between;gap:12px}
 .package-includes b{color:var(--ink);font-weight:700}
-.package-includes li.package-fin-choice{display:grid;gap:6px}
-.package-fin-choice label{font-size:12px;font-weight:700;color:var(--ink)}
 .package-card .btn{margin-top:auto}
 .package-note{font-size:13px;color:var(--muted);margin-top:16px}
 
@@ -673,11 +667,11 @@ const CATS = [
   {id:'beach', name:'Beach & Water', blurb:'Snorkeling and safety gear for Sarangani Bay outings.', hero:'mask'},
 ];
 const RENTAL_PACKAGES = [
-  {name:'Events and Parties',cat:'events',price:1400,deposit:700,items:[['chairs',50],['tables',5],['sound',1]]},
-  {name:'Entertainment Equipment',cat:'entertainment',price:1700,deposit:850,items:[['karaoke',1],['boardgames',2],['projector',1]]},
-  {name:'Photography and Content Creation',cat:'photography',price:720,deposit:360,items:[['dslr',1],['underwater',1],['reflector',1]]},
-  {name:'Outdoor and Camping',cat:'outdoor',price:550,deposit:275,items:[['tent',1],['campchair',4],['camptable',1]]},
-  {name:'Beach and Water Activities',cat:'beach',price:1530,deposit:765,items:[['fins-plastic',4],['mask',4],['vest',4]]},
+  {name:'Events and Parties',cat:'events',items:[['chairs',50],['tables',5],['sound',1]]},
+  {name:'Entertainment Equipment',cat:'entertainment',items:[['karaoke',1],['boardgames',2],['projector',1]]},
+  {name:'Photography and Content Creation',cat:'photography',items:[['dslr',1],['underwater',1],['reflector',1]]},
+  {name:'Outdoor and Camping',cat:'outdoor',items:[['tent',1],['campchair',4],['camptable',1]]},
+  {name:'Beach and Water Activities',cat:'beach',items:[['fins-plastic',4],['mask',4],['vest',4]]},
 ];
 const SEED_ITEMS = [
   {id:'chairs', cat:'events', name:'Event Chair', price:15, unit:'chair', deposit:8, stock:200, desc:'White resin monoblock chairs with seat covers available on request. Stackable, easy to transport in a pickup or van.', includes:['Wiped and sanitized before release','Stack of 10 per bundle','Optional white seat cover (+₱10)']},
@@ -699,15 +693,15 @@ const SEED_ITEMS = [
   {id:'mask', cat:'beach', name:'Diving Mask', price:60, unit:'mask', deposit:30, stock:16, desc:'Tempered-glass mask with silicone skirt and a dry-top snorkel. Anti-fog treated before every rental.', includes:['Tempered-glass lens','Dry-top snorkel','Anti-fog treated']},
   {id:'vest', cat:'beach', name:'Life Vest (Kids/Adults)', price:120, unit:'vest', deposit:60, stock:20, desc:'Coast-guard-style buoyancy vests with buckles and crotch strap. Available in kids (15–40kg) and adult sizes.', includes:['Kids and adult sizes','Buckle closure + crotch strap','Reflective tape']},
 ];
-const PRICING_VERSION = 4;
+const PRICING_VERSION = 5;
 
 /* ---------- equipment images ---------- */
 const EQUIPMENT_IMAGES = {
-  chairs:'assets/products/event-chair.webp',
+  chairs:'assets/products/chair final.png',
   tables:'assets/products/event-table.webp',
-  sound:'assets/products/sound-system.webp',
-  karaoke:'assets/products/karaoke-machine-existing.webp',
-  boardgames:'assets/products/board-games-existing.webp',
+  sound:'assets/products/sound system final.png',
+  karaoke:'assets/products/karaoke final.png',
+  boardgames:'assets/products/boardgames-removebg-preview.png',
   projector:'assets/products/projector-screen-existing.webp',
   dslr:'assets/products/dslr-camera.webp',
   underwater:'assets/products/underwater-camera-existing.webp',
@@ -803,7 +797,6 @@ if((DB.pricingVersion||0)<PRICING_VERSION){
   for(const source of SEED_ITEMS){
     let stored=DB.items.find(i=>i.id===source.id);
     if(!stored){stored={...source,status:'active'};DB.items.push(stored)}
-    Object.assign(stored,{name:source.name,price:source.price,deposit:source.deposit});
   }
   const legacyFins=DB.items.find(i=>i.id==='fins');
   if(legacyFins){
@@ -823,15 +816,9 @@ if((DB.pricingVersion||0)<PRICING_VERSION){
     DB.items.find(i=>i.id==='fins-ice').stock=remaining-Math.floor(remaining/2);
     for(const r of DB.reservations||[]) for(const line of r.lines||[]) if(line.itemId==='fins'){
       line.itemId='fins-plastic';
-      line.price=DB.items.find(i=>i.id==='fins-plastic').price;
-      line.deposit=DB.items.find(i=>i.id==='fins-plastic').deposit;
     }
     for(const line of DB.cart||[]) if(line.itemId==='fins') line.itemId='fins-plastic';
     DB.items=DB.items.filter(i=>i.id!=='fins');
-  }
-  for(const r of DB.reservations||[]) for(const line of r.lines||[]){
-    const source=SEED_ITEMS.find(i=>i.id===line.itemId);
-    if(source) Object.assign(line,{price:source.price,deposit:source.deposit});
   }
   DB.pricingVersion=PRICING_VERSION;
   try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){}
@@ -839,15 +826,9 @@ if((DB.pricingVersion||0)<PRICING_VERSION){
 if(DB.period.start < TODAY) DB.period = {start:addDays(TODAY,1), end:addDays(TODAY,2)};
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(DB)) }catch(e){} }
 
-const UI = {view:'home', cat:'all', q:'', checkout:null, lastCode:null, adminTab:'overview', resFilter:'all', resQ:'', authMode:'login', authNext:null, acctTab:'reservations', menu:false, sort:'popular', packageFin:'fins-plastic'};
+const UI = {view:'home', cat:'all', q:'', checkout:null, lastCode:null, adminTab:'overview', resFilter:'all', resQ:'', authMode:'login', authNext:null, acctTab:'reservations', menu:false, sort:'popular'};
 
 const item = id => DB.items.find(i=>i.id===id);
-const packageAmounts = pack => {
-  const baseFin=SEED_ITEMS.find(i=>i.id==='fins-plastic');
-  const selectedFin=item(UI.packageFin)||baseFin;
-  const qty=pack.items.find(([id])=>id==='fins-plastic')?.[1]||0;
-  return {price:pack.price+qty*(selectedFin.price-baseFin.price),deposit:pack.deposit+qty*(selectedFin.deposit-baseFin.deposit)};
-};
 const user = id => DB.users.find(u=>u.id===id);
 const me = () => DB.session ? user(DB.session) : null;
 const catName = id => (CATS.find(c=>c.id===id)||{}).name || id;
@@ -954,14 +935,13 @@ function pageHome(){
   </div></section>
 
   <section class="section" style="padding-top:0"><div class="wrap">
-    <div class="sec-head"><div><div class="eyebrow">Ready-made bundles</div><h2>Rental packages</h2><p>Curated gear bundles for your event, shoot or day out, with one clear daily rate and refundable deposit.</p></div></div>
-    <div class="package-grid">${RENTAL_PACKAGES.map(pack=>{const amounts=packageAmounts(pack);return `<article class="package-card">
+    <div class="sec-head"><div><div class="eyebrow">Equipment ideas</div><h2>Suggested bundles</h2><p>Curated gear combinations for your event, shoot or day out. Each item is rented and priced separately.</p></div></div>
+    <div class="package-grid">${RENTAL_PACKAGES.map(pack=>`<article class="package-card">
       <div><div class="eyebrow">${catName(pack.cat)}</div><h3>${pack.name}</h3></div>
-      <div><div class="package-price">${peso(amounts.price)} <small>/ day</small></div><div class="package-deposit"><span>Refundable deposit</span><b>${peso(amounts.deposit)}</b></div></div>
-      <ul class="package-includes">${pack.items.map(([id,qty])=>id==='fins-plastic'?`<li class="package-fin-choice"><label for="package-fin">Choose included fins · × ${qty}</label><select class="input" id="package-fin" data-package-fin aria-label="Choose fins included in the beach package">${['fins-plastic','fins-carbon','fins-ice','fins-short'].map(finId=>{const fin=item(finId);return `<option value="${finId}" ${UI.packageFin===finId?'selected':''}>${esc(fin.name)} · ${peso(fin.price)}/day · ${peso(fin.deposit)} deposit</option>`}).join('')}</select></li>`:`<li><span>${esc(item(id).name)}</span><b>× ${qty}</b></li>`).join('')}</ul>
-      <button class="btn btn-primary" data-cat-go="${pack.cat}">Reserve Package</button>
-    </article>`}).join('')}</div>
-    <p class="package-note">The beach package includes four pairs of your selected fin type. Package totals update with that choice; individual rentals are priced separately in the catalog.</p>
+      <ul class="package-includes">${pack.items.map(([id,qty])=>`<li><span>${esc(item(id).name)}</span><b>× ${qty}</b></li>`).join('')}</ul>
+      <button class="btn btn-primary" data-cat-go="${pack.cat}">Browse category</button>
+    </article>`).join('')}</div>
+    <p class="package-note">Suggestions only; there is no separate bundle price. Your cart uses each item’s current daily rate and refundable deposit.</p>
   </div></section>
 
   <section class="section" style="padding-top:0"><div class="wrap">
@@ -1032,7 +1012,7 @@ function productCard(it){
   return `<article class="card">
     <button class="art${equipmentImages(it.id).length>1?' paired':''}" data-cat="${it.cat}" data-item="${it.id}" aria-label="View ${esc(it.name)}">${equipmentPhotos(it.id)}<span class="tag">${availPill(it)}</span></button>
     <div class="card-body"><span class="card-cat">${catName(it.cat)}</span><h3>${esc(it.name)}</h3><p class="desc">${esc(it.desc)}</p>
-      <div class="card-foot"><span class="price num">${peso(it.price)} <small>Daily Rental Rate / ${esc(it.unit)} / day</small><small><br>Refundable Security Deposit: ${peso(it.deposit)}</small></span>
+      <div class="card-foot"><span class="price num">${peso(it.price)} <small>/ ${esc(it.unit)} / day</small><small><br>Refundable Security Deposit: ${peso(it.deposit)}</small></span>
       <button class="btn btn-primary btn-sm" data-item="${it.id}">Reserve</button></div></div></article>`;
 }
 function periodFields(prefix){
@@ -1103,7 +1083,7 @@ function pageCart(){
       <div class="panel"><div class="panel-h"><h3>Rental period</h3><span class="muted num">${t.d} day${t.d>1?'s':''} · all items share these dates</span></div><div class="panel-b">${periodFields('cp')}</div></div>
       ${cf.length?`<div class="notice bad">${I.info}<span><b>Some items aren't available for these dates.</b> ${cf.map(c=>`${esc(item(c.id).name)}: you need ${c.need}, only ${c.have} free`).join('; ')}. Lower the quantity or change dates.</span></div>`:''}
       <div class="panel"><div class="panel-h"><h3>Equipment</h3><button class="link-btn" data-go="catalog">Add more items</button></div>
-        ${DB.cart.map((l,i)=>{const it=item(l.itemId);const a=available(it.id,DB.period.start,DB.period.end);const bad=a<l.qty;return `<div class="line">${art(it.id,it.cat)}<div style="min-width:0"><h4>${esc(it.name)}</h4><div class="line-meta num">Daily Rental Rate: ${peso(it.price)} / ${esc(it.unit)} / day · Refundable Security Deposit: ${peso(it.deposit)} / ${esc(it.unit)}${l.note?` · Sizes: ${esc(l.note)}`:''}</div><div style="margin-top:6px">${bad?`<span class="pill bad">${a} free for these dates</span>`:`<span class="pill ok">Available</span>`}</div></div>
+        ${DB.cart.map((l,i)=>{const it=item(l.itemId);const a=available(it.id,DB.period.start,DB.period.end);const bad=a<l.qty;return `<div class="line">${art(it.id,it.cat)}<div style="min-width:0"><h4>${esc(it.name)}</h4><div class="line-meta num">${peso(it.price)} / ${esc(it.unit)} / day · Refundable Security Deposit: ${peso(it.deposit)} / ${esc(it.unit)}${l.note?` · Sizes: ${esc(l.note)}`:''}</div><div style="margin-top:6px">${bad?`<span class="pill bad">${a} free for these dates</span>`:`<span class="pill ok">Available</span>`}</div></div>
           <div class="line-right"><div class="qty"><button data-cq="${i}" data-d="-1" aria-label="Decrease">−</button><input value="${l.qty}" data-cqi="${i}" type="number" min="1" aria-label="Quantity"><button data-cq="${i}" data-d="1" aria-label="Increase">+</button></div><span class="num" style="font-weight:700"><small>Rental subtotal</small> ${peso(it.price*l.qty*t.d)}</span><button class="link-btn" data-rm="${i}" style="font-size:13px">Remove</button></div></div>`}).join('')}
       </div>
     </div>
@@ -1158,7 +1138,7 @@ function placeOrder(){
   const cf=conflicts(DB.cart,DB.period.start,DB.period.end);
   if(cf.length){ toast('Someone just booked some of these units. Please review your cart.',true); go('cart'); return; }
   let code; do{ code='RH-'+(24830+Math.floor(Math.random()*9000)); }while(DB.reservations.some(r=>r.code===code));
-  DB.reservations.unshift({code,userId:DB.session,lines:DB.cart.map(l=>({itemId:l.itemId,qty:l.qty,price:item(l.itemId).price,note:l.note||''})),start:DB.period.start,end:DB.period.end,status:'pending',slot:c.slot,pay:c.pay,created:TODAY,notes:c.notes});
+  DB.reservations.unshift({code,userId:DB.session,lines:DB.cart.map(l=>({itemId:l.itemId,qty:l.qty,price:item(l.itemId).price,deposit:item(l.itemId).deposit,note:l.note||''})),start:DB.period.start,end:DB.period.end,status:'pending',slot:c.slot,pay:c.pay,created:TODAY,notes:c.notes});
   const u=me(); u.phone=c.phone;
   DB.cart=[]; UI.checkout=null; UI.lastCode=code; save(); go('confirm');
 }
@@ -1377,7 +1357,6 @@ function bind(){
   const pf=$('#profForm'); if(pf) pf.onsubmit=e=>{e.preventDefault(); const u=me(); u.name=$('#p-name').value.trim()||u.name; u.phone=$('#p-phone').value.trim()||u.phone; save(); render(); toast('Profile saved');};
   const rq=$('#resQ'); if(rq) rq.oninput=()=>{UI.resQ=rq.value; const p=rq.selectionStart; render(); const n=$('#resQ'); n.focus(); n.setSelectionRange(p,p);};
   const ai=$('#addItem'); if(ai) ai.onclick=()=>editItem(null);
-  document.querySelectorAll('[data-package-fin]').forEach(select=>select.onchange=()=>{UI.packageFin=select.value;render();});
 }
 function setPeriod(start,end,quiet){
   if(!start) start=DB.period.start; if(!end) end=DB.period.end;
