@@ -26,13 +26,17 @@ Interactive website preview for **RentHub Gensan**, a multi-category equipment r
 | Outdoor and Camping | Camping Tent, Folding Camping Chair, Folding Camping Table |
 | Beach and Water Activities | Diving Fins, Diving Mask, Life Vest – Kids and Adults |
 
-Rates, deposits, packages and stock follow the feasibility study (Tables 5, 6 and 22).
+Rental rates, deposits and stock follow the feasibility study (Tables 5, 6 and 22), except for the custom Beach and Water package below.
 
 ### Shop rules
 
 - All reservations are picked up and returned at the shop on Pan-Philippine National Highway, Barangay City Heights. The site has no delivery or shipping options.
 - The shop is open Monday to Saturday, 9:00 AM to 5:00 PM, and closed on Sundays, so pickups and returns can't fall on a Sunday.
 - Each rental day is a 24-hour period from the pickup time. Short-term rentals run up to 6 days, and long-term rentals run 7 days and above.
+
+### Fixed-price package
+
+The Beach and Water Activities package is reservable at **₱1,760 per day** with an **₱880 refundable deposit**. It includes 1 Underwater Camera, 2 pairs of Diving Fins, 2 Diving Masks and 2 Life Vests. Reservations hold the included equipment against inventory availability.
 
 ## Preview accounts
 
