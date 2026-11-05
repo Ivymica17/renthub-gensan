@@ -677,7 +677,7 @@ const RENTAL_PACKAGES = [
   {name:'Entertainment Equipment',cat:'entertainment',price:1700,deposit:850,items:[['karaoke',1],['projector',1],['boardgames',1]]},
   {name:'Photography and Content Creation',cat:'photography',price:720,deposit:360,items:[['dslr',1],['reflector',1]]},
   {name:'Outdoor and Camping',cat:'outdoor',price:550,deposit:275,items:[['tent',1],['campchair',2],['camptable',1]]},
-  {name:'Beach and Water Activities',cat:'beach',price:1760,deposit:880,items:[['underwater',1],['fins-plastic',2],['mask',2],['vest',2]]},
+  {name:'Beach and Water Activities',cat:'beach',price:1760,deposit:880,items:[['underwater',1],['fins-carbon',2],['mask',2],['vest',2]]},
 ];
 const SEED_ITEMS = [
   {id:'chairs', cat:'events', name:'Event Chair', price:15, unit:'chair', deposit:8, stock:200, desc:'White resin monoblock chairs with seat covers available on request. Stackable, easy to transport in a pickup or van.', includes:['Wiped and sanitized before release','Stack of 10 per bundle','Optional white seat cover (+₱10)']},
@@ -692,10 +692,7 @@ const SEED_ITEMS = [
   {id:'tent', cat:'outdoor', name:'Camping Tent', price:350, unit:'tent', deposit:175, stock:10, desc:'Waterproof 4-person dome tent with rain fly and ground sheet. Sets up in about 10 minutes.', includes:['4-person dome tent','Rain fly and ground sheet','Stakes and guy lines']},
   {id:'campchair', cat:'outdoor', name:'Folding Camping Chair', price:75, unit:'chair', deposit:38, stock:20, desc:'Lightweight steel-frame chair with cup holder and shoulder bag. Supports up to 120kg.', includes:['Cup holder armrest','Carry bag with strap','120kg capacity']},
   {id:'camptable', cat:'outdoor', name:'Folding Camping Table', price:120, unit:'table', deposit:60, stock:8, desc:'Aluminum roll-top table that folds into a carry bag. Fits 4 people for meals at camp.', includes:['Aluminum roll-top','Adjustable legs','Carry bag']},
-  {id:'fins-plastic', cat:'beach', name:'Plastic Fins (Pair)', price:250, unit:'pair', deposit:125, stock:8, desc:'Lightweight plastic fins for snorkeling and recreational diving. Sizes S to XL.', includes:['Lightweight plastic blades','Sizes S–XL','Rinsed and sanitized']},
   {id:'fins-carbon', cat:'beach', name:'Carbon Fiber Fins (Pair)', price:500, unit:'pair', deposit:250, stock:4, desc:'Responsive carbon fiber fins for snorkeling and recreational diving. Sizes S to XL.', includes:['Responsive carbon fiber blades','Sizes S–XL','Rinsed and sanitized']},
-  {id:'fins-ice', cat:'beach', name:'Ice Fins (Pair)', price:300, unit:'pair', deposit:150, stock:4, desc:'Ice fins for snorkeling and recreational diving. Sizes S to XL.', includes:['Durable ice-fins construction','Sizes S–XL','Rinsed and sanitized']},
-  {id:'fins-short', cat:'beach', name:'Short Fins (Pair)', price:150, unit:'pair', deposit:75, stock:8, desc:'Compact short-blade fins for snorkeling and recreational swimming. Sizes S to XL.', includes:['Compact short blades','Sizes S–XL','Rinsed and sanitized']},
   {id:'mask', cat:'beach', name:'Diving Mask', price:60, unit:'mask', deposit:30, stock:16, desc:'Tempered-glass mask with silicone skirt and a dry-top snorkel. Anti-fog treated before every rental.', includes:['Tempered-glass lens','Dry-top snorkel','Anti-fog treated']},
   {id:'vest', cat:'beach', name:'Life Vest (Kids/Adults)', price:120, unit:'vest', deposit:60, stock:20, desc:'Coast-guard-style buoyancy vests with buckles and crotch strap. Available in kids (15–40kg) and adult sizes.', includes:['Kids and adult sizes','Buckle closure + crotch strap','Reflective tape']},
 ];
@@ -715,10 +712,7 @@ const EQUIPMENT_IMAGES = {
   tent:'assets/products/camping-tent-existing.webp',
   campchair:'assets/products/camping-chair.webp',
   camptable:'assets/products/camping-table.webp',
-  'fins-plastic':'assets/products/plastic-fins.webp',
-  'fins-carbon':'assets/products/carbon fins.png',
-  'fins-ice':'assets/products/ice-fins-existing.webp',
-  'fins-short':'assets/products/short-fins.webp',
+  'fins-carbon':'assets/products/carbon fin.png',
   mask:'assets/products/diving-mask.webp',
   vest:['assets/products/lifevest-kids.webp','assets/products/lifevest-adult.webp'],
 };
@@ -788,7 +782,7 @@ function seed(){
     mk('RH-24817','u1',[['sound',1],['chairs',80],['tables',10]],3,5,'confirmed','9:00 AM','shop',-4),
     mk('RH-24822','u2',[['sound',2]],4,5,'pending','10:00 AM','gcash',-1),
     mk('RH-24790','u3',[['tent',3],['campchair',6],['camptable',2]],0,2,'picked_up','8:00 AM','shop',-6),
-    mk('RH-24805','u4',[['mask',4],['fins-plastic',4],['vest',4],['underwater',1]],0,1,'confirmed','1:00 PM','gcash',-3),
+    mk('RH-24805','u4',[['mask',4],['vest',4],['underwater',1]],0,1,'confirmed','1:00 PM','gcash',-3),
     mk('RH-24761','u1',[['karaoke',1],['projector',1]],-14,-12,'returned','3:00 PM','shop',-20),
     mk('RH-24733','u2',[['dslr',1],['reflector',1]],-9,-8,'returned','10:00 AM','gcash',-15),
     mk('RH-24829','u3',[['projector',2],['boardgames',3]],7,8,'pending','2:00 PM','shop',0),
@@ -815,16 +809,15 @@ if((DB.pricingVersion||0)<PRICING_VERSION){
     }
     const peakBooked=Math.max(0,...Object.values(bookedByDay));
     const legacyStock=Math.max(legacyFins.stock||0,peakBooked);
-    const plasticStock=Math.max(Math.min(8,legacyStock),peakBooked);
-    const remaining=Math.max(0,legacyStock-plasticStock);
-    DB.items.find(i=>i.id==='fins-plastic').stock=plasticStock;
-    DB.items.find(i=>i.id==='fins-plastic').status=legacyFins.status||'active';
-    DB.items.find(i=>i.id==='fins-carbon').stock=Math.floor(remaining/2);
-    DB.items.find(i=>i.id==='fins-ice').stock=remaining-Math.floor(remaining/2);
-    for(const r of DB.reservations||[]) for(const line of r.lines||[]) if(line.itemId==='fins'){
-      line.itemId='fins-plastic';
+    const carbonItem=DB.items.find(i=>i.id==='fins-carbon');
+    if(carbonItem){
+      carbonItem.stock=legacyStock;
+      carbonItem.status=legacyFins.status||'active';
     }
-    for(const line of DB.cart||[]) if(line.itemId==='fins') line.itemId='fins-plastic';
+    for(const r of DB.reservations||[]) for(const line of r.lines||[]) if(line.itemId==='fins'){
+      line.itemId='fins-carbon';
+    }
+    for(const line of DB.cart||[]) if(line.itemId==='fins') line.itemId='fins-carbon';
     DB.items=DB.items.filter(i=>i.id!=='fins');
   }
   DB.pricingVersion=PRICING_VERSION;
@@ -837,8 +830,12 @@ const UI = {view:'home', cat:'all', q:'', checkout:null, lastCode:null, adminTab
 
 const item = id => DB.items.find(i=>i.id===id);
 const packOf = p => p.items ? p : {...RENTAL_PACKAGES[p.pack], qty:p.qty};
-const packRegular = p => packOf(p).items.reduce((total,[id,qty])=>total+(item(id)?.price||0)*qty,0);
-const packSnapshot = (i,qty) => { const p=RENTAL_PACKAGES[i]; return {name:p.name,cat:p.cat,qty,price:p.price,deposit:p.deposit,items:p.items.map(([id,q])=>[id,q])}; };
+const itemPackageRate = pack => (pack?.items || []).reduce((total,[id,qty])=>total+(item(id)?.price||0)*qty,0);
+const itemPackageDeposit = pack => (pack?.items || []).reduce((total,[id,qty])=>total+(item(id)?.deposit||0)*qty,0);
+const packagePrice = pack => Number.isFinite(pack?.price) ? pack.price : itemPackageRate(pack);
+const packageDeposit = pack => Number.isFinite(pack?.deposit) ? pack.deposit : itemPackageDeposit(pack);
+const packRegular = p => itemPackageRate(packOf(p));
+const packSnapshot = (i,qty) => { const p=RENTAL_PACKAGES[i]; return {name:p.name,cat:p.cat,qty,price:packagePrice(p),deposit:packageDeposit(p),items:p.items.map(([id,q])=>[id,q])}; };
 function units(lines,packs=[]){
   const need={};
   lines.forEach(l=>need[l.itemId]=(need[l.itemId]||0)+l.qty);
@@ -879,11 +876,11 @@ function packFree(i, ignoreCart=false){
   return Math.max(0,Math.min(...RENTAL_PACKAGES[i].items.map(([id,q])=>Math.floor((available(id,DB.period.start,DB.period.end)-(inCart[id]||0))/q))));
 }
 function packageCard(pack,i){
-  const free=packFree(i), savings=packRegular({...pack,qty:1})-pack.price;
+  const rate=packagePrice(pack), dep=packageDeposit(pack), free=packFree(i), savings=packRegular({items:pack.items,qty:1})-rate;
   return `<article class="package-card">
     <div><div class="eyebrow">${catName(pack.cat)} · Rental package</div><h3>${esc(pack.name)}</h3></div>
-    <div class="package-price">${peso(pack.price)} <small>/ day</small></div>
-    <div class="package-deposit"><span>Refundable deposit</span><b>${peso(pack.deposit)}</b></div>
+    <div class="package-price">${peso(rate)} <small>/ day</small></div>
+    <div class="package-deposit"><span>Refundable deposit</span><b>${peso(dep)}</b></div>
     ${savings>0?`<div class="package-deposit"><span>You save versus individual rates</span><b>${peso(savings)} / day</b></div>`:''}
     <ul class="package-includes">${pack.items.map(([id,qty])=>`<li><span>${esc(item(id)?.name||id)}</span><b>× ${qty}</b></li>`).join('')}</ul>
     <button class="btn btn-primary" data-pack="${i}" ${free?'':'disabled'}>${free?'Reserve Package':'Not available for these dates'}</button>
@@ -1109,9 +1106,9 @@ function itemModal(id){
 function cartTotals(){
   const d=rentalDays(DB.period.start,DB.period.end);
   const itemsDay=DB.cart.reduce((a,l)=>a+item(l.itemId).price*l.qty,0);
-  const packsDay=DB.cartPacks.reduce((a,p)=>a+RENTAL_PACKAGES[p.pack].price*p.qty,0);
-  const dep=DB.cart.reduce((a,l)=>a+item(l.itemId).deposit*l.qty,0)+DB.cartPacks.reduce((a,p)=>a+RENTAL_PACKAGES[p.pack].deposit*p.qty,0);
-  const save=DB.cartPacks.reduce((a,p)=>a+(packRegular(p)-RENTAL_PACKAGES[p.pack].price)*p.qty,0);
+  const packsDay=DB.cartPacks.reduce((a,p)=>a+packagePrice(RENTAL_PACKAGES[p.pack])*p.qty,0);
+  const dep=DB.cart.reduce((a,l)=>a+item(l.itemId).deposit*l.qty,0)+DB.cartPacks.reduce((a,p)=>a+packageDeposit(RENTAL_PACKAGES[p.pack])*p.qty,0);
+  const save=DB.cartPacks.reduce((a,p)=>a+(packRegular(p)-packagePrice(RENTAL_PACKAGES[p.pack]))*p.qty,0);
   const perDay=itemsDay+packsDay;
   return {d,itemsDay,packsDay,perDay,rent:perDay*d,dep,save};
 }
@@ -1127,8 +1124,8 @@ function pageCart(){
       <div class="panel"><div class="panel-h"><h3>Rental period</h3><span class="muted num">${t.d} day${t.d>1?'s':''} · all items share these dates</span></div><div class="panel-b">${periodFields('cp')}</div></div>
       ${cf.length?`<div class="notice bad">${I.info}<span><b>Some items aren't available for these dates.</b> ${cf.map(c=>`${esc(item(c.id).name)}: you need ${c.need}, only ${c.have} free`).join('; ')}. Lower the quantity or change dates.</span></div>`:''}
       ${DB.cartPacks.length?`<div class="panel"><div class="panel-h"><h3>Packages</h3><span class="muted">Fixed package rate · contents are reserved from inventory</span></div>
-        ${DB.cartPacks.map((p,i)=>{const pk=RENTAL_PACKAGES[p.pack],bad=pk.items.some(([id])=>short(id)),saving=packRegular(p)-pk.price;return `<div class="line">${art(pk.items[0][0],pk.cat)}<div style="min-width:0"><h4>${esc(pk.name)} package</h4><div class="line-meta num">${peso(pk.price)} / day · Refundable Security Deposit: ${peso(pk.deposit)}${saving>0?` · Saves ${peso(saving)} / day`:''}</div><div class="line-meta">${pk.items.map(([id,q])=>`${q} × ${esc(item(id)?.name||id)}`).join(' · ')}</div><div style="margin-top:6px">${bad?'<span class="pill bad">Not enough free units for these dates</span>':'<span class="pill ok">Available</span>'}</div></div>
-          <div class="line-right">${qtyBox('pq',i,p.qty)}<span class="num" style="font-weight:700"><small>Rental subtotal</small> ${peso(pk.price*p.qty*t.d)}</span><button class="link-btn" data-prm="${i}" style="font-size:13px">Remove</button></div></div>`}).join('')}
+        ${DB.cartPacks.map((p,i)=>{const pk=RENTAL_PACKAGES[p.pack],basePrice=packagePrice(pk),baseDeposit=packageDeposit(pk),bad=pk.items.some(([id])=>short(id)),saving=packRegular(p)-basePrice;return `<div class="line">${art(pk.items[0][0],pk.cat)}<div style="min-width:0"><h4>${esc(pk.name)} package</h4><div class="line-meta num">${peso(basePrice)} / day · Refundable Security Deposit: ${peso(baseDeposit)}${saving>0?` · Saves ${peso(saving)} / day`:''}</div><div class="line-meta">${pk.items.map(([id,q])=>`${q} × ${esc(item(id)?.name||id)}`).join(' · ')}</div><div style="margin-top:6px">${bad?'<span class="pill bad">Not enough free units for these dates</span>':'<span class="pill ok">Available</span>'}</div></div>
+          <div class="line-right">${qtyBox('pq',i,p.qty)}<span class="num" style="font-weight:700"><small>Rental subtotal</small> ${peso(basePrice*p.qty*t.d)}</span><button class="link-btn" data-prm="${i}" style="font-size:13px">Remove</button></div></div>`}).join('')}
       </div>`:''}
       <div class="panel"><div class="panel-h"><h3>Individual items</h3><button class="link-btn" data-go="catalog">Add more items</button></div>
         ${DB.cart.length?DB.cart.map((l,i)=>{const it=item(l.itemId),a=available(it.id,DB.period.start,DB.period.end);return `<div class="line">${art(it.id,it.cat)}<div style="min-width:0"><h4>${esc(it.name)}</h4><div class="line-meta num">${peso(it.price)} / ${esc(it.unit)} / day · Refundable Security Deposit: ${peso(it.deposit)} / ${esc(it.unit)}${l.note?` · Sizes: ${esc(l.note)}`:''}</div><div style="margin-top:6px">${short(it.id)?`<span class="pill bad">${a} free for these dates</span>`:`<span class="pill ok">Available</span>`}</div></div>
@@ -1137,7 +1134,7 @@ function pageCart(){
       </div>
     </div>
     <aside class="panel summary"><div class="panel-h"><h3>Summary</h3></div><div class="panel-b">
-      ${DB.cartPacks.map(p=>{const pk=RENTAL_PACKAGES[p.pack];return `<div class="sum-row"><span>${p.qty} × ${esc(pk.name)} package</span><b>${peso(pk.price*p.qty*t.d)}</b></div>`}).join('')}
+      ${DB.cartPacks.map(p=>{const pk=RENTAL_PACKAGES[p.pack],rate=packagePrice(pk);return `<div class="sum-row"><span>${p.qty} × ${esc(pk.name)} package</span><b>${peso(rate*p.qty*t.d)}</b></div>`}).join('')}
       ${DB.cart.length&&DB.cartPacks.length?`<div class="sum-row"><span>Individual items (${peso(t.itemsDay)} / day)</span><b>${peso(t.itemsDay*t.d)}</b></div>`:''}
       <div class="sum-row"><span>Rental subtotal</span><b>${peso(t.rent)}</b></div>
       ${t.save>0?`<p style="font-size:13px;color:var(--ok);margin:0 0 6px">Package rates save ${peso(t.save*t.d)} versus renting the same items individually.</p>`:''}
@@ -1176,7 +1173,7 @@ function pageCheckout(){
   </form>
   <aside class="panel summary"><div class="panel-h"><h3>Your reservation</h3><button class="link-btn" data-go="cart">Edit</button></div><div class="panel-b">
     <div class="sum-row"><span class="muted">Dates</span><b>${fmtShort(DB.period.start)} – ${fmtShort(DB.period.end)}</b></div>
-    ${DB.cartPacks.map(p=>{const pk=RENTAL_PACKAGES[p.pack];return `<div class="sum-row"><span>Package · ${p.qty} × ${esc(pk.name)}</span><span>${peso(pk.price*p.qty*t.d)}</span></div>`}).join('')}
+    ${DB.cartPacks.map(p=>{const pk=RENTAL_PACKAGES[p.pack],rate=packagePrice(pk);return `<div class="sum-row"><span>Package · ${p.qty} × ${esc(pk.name)}</span><span>${peso(rate*p.qty*t.d)}</span></div>`}).join('')}
     ${DB.cart.map(l=>{const it=item(l.itemId);return `<div class="sum-row"><span>Rental · ${l.qty} × ${esc(it.name)}</span><span>${peso(it.price*l.qty*t.d)}</span></div>`}).join('')}
     <div class="sum-row" style="border-top:1px solid var(--line);margin-top:8px;padding-top:10px"><span>Rental subtotal</span><b>${peso(t.rent)}</b></div>
     <div class="sum-row"><span>Refundable Security Deposit</span><b>${peso(t.dep)}</b></div>
